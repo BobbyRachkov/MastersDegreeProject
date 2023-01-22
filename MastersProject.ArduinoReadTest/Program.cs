@@ -29,7 +29,8 @@ namespace MastersProject.ArduinoReadTest
         static void Main(string[] args)
         {
             //OldTest();
-            _serialCommunicator = new SerialPortCommunicator<SerialData>("COM7", 2000000, new SerialTranslator());
+            _serialCommunicator = new SerialPortCommunicator<SerialData>(new SerialTranslator());
+            _serialCommunicator.Setup("COM7", 2000000);
             _serialCommunicator.StartAsync((d) =>
             {
                 //Console.WriteLine(d);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MastersProject.App.Infrastructure
 {
-    internal abstract class NotifyPropertyChangedBase : INotifyPropertyChanged
+    internal abstract class PropertyChangedBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

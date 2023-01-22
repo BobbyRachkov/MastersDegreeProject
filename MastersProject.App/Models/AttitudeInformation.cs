@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MastersProject.App.Models
 {
-    internal sealed class AttitudeInformation : NotifyPropertyChangedBase
+    internal sealed class AttitudeInformation : PropertyChangedBase
     {
         private EquationDescriptor _pitchEquation;
         private EquationDescriptor _rollEquation;

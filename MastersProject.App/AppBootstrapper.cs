@@ -24,7 +24,7 @@ namespace MastersProject.App
 
             var windowManager = _container.Resolve<IWindowManager>();
             windowManager.SetActiveFactory<PfdWindowFactory>();
-            windowManager.ShowWindow<MainViewModel>();
+            windowManager.ShowWindow<PfdViewModel>();
         }
         public static void OnShutdown()
         {

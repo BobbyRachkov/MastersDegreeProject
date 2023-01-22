@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.WindowFactories;
+using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.App.Translators;
 using MastersProject.App.ViewModels;
@@ -30,7 +31,13 @@ namespace MastersProject.App
 
             builder.RegisterType<MainViewModel>()
                 .AsSelf()
+                .SingleInstance(); 
+            builder.RegisterType<PfdViewModel>()
+                .AsSelf()
                 .SingleInstance();
+
+            builder.RegisterType<LinearRegressionCalculator>()
+                .As<IApproximationEngine>();
         }
     }
 }

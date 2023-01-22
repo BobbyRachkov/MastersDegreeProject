@@ -61,8 +61,10 @@ namespace MastersProject.App.Infrastructure
             var window = _windows.FirstOrDefault(x => x.Content == viewModel);
             CloseWindow(window);
         }
-        public void CloseWindow(Window window)
+        public void CloseWindow(Window? window)
         {
+            if (window == null)
+                return;
             _windows.Remove(window);
             window?.Close();
         }

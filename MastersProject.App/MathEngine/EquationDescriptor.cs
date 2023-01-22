@@ -1,6 +1,6 @@
-﻿namespace MastersProject.App.Models
+﻿namespace MastersProject.App.MathEngine
 {
-    internal class EquationDescriptor
+    internal sealed class EquationDescriptor
     {
         public double SlopeCoefficient { get; }
 

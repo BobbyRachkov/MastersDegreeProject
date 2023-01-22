@@ -11,6 +11,9 @@
                     <DataTemplate DataType="{x:Type viewModels:MainViewModel}">
                         <views:MainView/>
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:PfdViewModel}">
+                        <views:PfdView/>
+                    </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

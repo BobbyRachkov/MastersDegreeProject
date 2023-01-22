@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastersProject.ArduinoReadTest", "MastersProject.ArduinoReadTest\MastersProject.ArduinoReadTest.csproj", "{6774E418-1492-4D5F-8050-7D4526351FF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arduino", "Arduino", "{298311C7-3AB5-44BF-B9DE-1C502DFF882A}"
+	ProjectSection(SolutionItems) = preProject
+		ArduinoSource\ArduinoSource.ino = ArduinoSource\ArduinoSource.ino
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastersProject.App", "MastersProject.App\MastersProject.App.csproj", "{CCF9B7A2-6B4E-4D03-860B-22077FA8A84D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastersProject.SerialCommunicator", "MastersProject.SerialCommunicator\MastersProject.SerialCommunicator.csproj", "{00E7B305-EBAD-4566-9D75-562510DA82C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6774E418-1492-4D5F-8050-7D4526351FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6774E418-1492-4D5F-8050-7D4526351FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6774E418-1492-4D5F-8050-7D4526351FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6774E418-1492-4D5F-8050-7D4526351FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCF9B7A2-6B4E-4D03-860B-22077FA8A84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF9B7A2-6B4E-4D03-860B-22077FA8A84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF9B7A2-6B4E-4D03-860B-22077FA8A84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF9B7A2-6B4E-4D03-860B-22077FA8A84D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E7B305-EBAD-4566-9D75-562510DA82C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E7B305-EBAD-4566-9D75-562510DA82C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E7B305-EBAD-4566-9D75-562510DA82C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E7B305-EBAD-4566-9D75-562510DA82C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9561387-730F-48D2-9E27-9DD078BFE9A6}
+	EndGlobalSection
+EndGlobal

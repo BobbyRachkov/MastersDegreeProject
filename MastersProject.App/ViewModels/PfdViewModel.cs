@@ -1,27 +1,39 @@
 ﻿using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.SerialCommunicator;
 using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Markup;
+using Point = MastersProject.App.MathEngine.Point;
 
 namespace MastersProject.App.ViewModels
 {
     internal class PfdViewModel : ViewModelBase, IDisposable
     {
-        public readonly ISerialCommunicator<AttitudeInformation> _serial;
+        public readonly ISerialCommunicator<SerialData> _serial;
         private readonly IApproximationEngine _approximationEngine;
+        private readonly SettingsViewModel _settingsViewModel;
+        private readonly IWindowManager _windowManager;
 
-        public PfdViewModel(ISerialCommunicator<AttitudeInformation> serial, IApproximationEngine approximationEngine)
+        public PfdViewModel(
+            ISerialCommunicator<SerialData> serial,
+            IApproximationEngine approximationEngine, 
+            SettingsViewModel settingsViewModel,
+            IWindowManager windowManager)
         {
             _serial = serial;
             _approximationEngine = approximationEngine;
+            _settingsViewModel = settingsViewModel;
+            _windowManager = windowManager;
             AttitudeIndicator = new();
 
             Point[] points = new[] 
             {
-                new Point(1023.0, 60.0),
-                new Point(0.0,-60.0)
+                new Point(1023f, 60f),
+                new Point(0f,-60.0)
             };
             var eqn = _approximationEngine.CalculateEquation(points);
 
@@ -29,22 +41,43 @@ namespace MastersProject.App.ViewModels
             AttitudeIndicator.RollEquation = eqn;
 
 
-            _serial.Setup("COM8", 9600);
-            _serial.StartAsync((data) =>
+            _serial.TrySetup("COM8", 9600);
+            _serial.DataReceived += Serial_DataReceived;
+            _serial.StartAsync();
+
+            _serial.ErrorOccured += Serial_ErrorOccured;
+
+            OpenSettingsCommand = new RelayCommand((_) =>
             {
-                OnUiThread(() =>
-                {
-                    AttitudeIndicator.RawPitch = data.RawPitch;
-                    AttitudeIndicator.RawRoll = data.RawRoll;
-                });
+                _windowManager.ResetDefaultWindowFactory();
+                _windowManager.ShowWindow(_settingsViewModel);
+            });
+            RestartCommand = new RelayCommand((_) =>
+            {
+                _serial.Restart();
             });
         }
 
-        public AttitudeInformation AttitudeIndicator { get; set; }
+        private void Serial_DataReceived(object? sender, SerialData data)
+        {
+            OnUiThread(() =>
+            {
+                AttitudeIndicator.UpdateRawValues(data);
+            });
+        }
+
+        private void Serial_ErrorOccured(object? sender, Exception e)
+        {
+            MessageBox.Show(e.Message);
+        }
+
+        public AttitudeInformation AttitudeIndicator { get; }
+        public ICommand OpenSettingsCommand{ get; }
+        public ICommand RestartCommand{ get; }
 
         public void Dispose()
         {
-            _serial.StopAsync();
+            _serial.Stop();
         }
     }
 }

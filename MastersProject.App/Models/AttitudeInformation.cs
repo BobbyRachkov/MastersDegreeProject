@@ -63,7 +63,13 @@ namespace MastersProject.App.Models
             _rollEquation = new EquationDescriptor(0, 0);
         }
 
-
+        public void UpdateRawValues(SerialData newData)
+        {
+            RawPitch = newData.Pitch;
+            RawRoll = newData.Roll;
+            Timestamp = newData.Timestamp;
+            Index = newData.Index;
+        }
 
         public override string ToString()
         {

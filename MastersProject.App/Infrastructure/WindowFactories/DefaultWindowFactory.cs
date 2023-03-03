@@ -11,7 +11,11 @@ namespace MastersProject.App.Infrastructure.WindowFactories
     {
         public virtual Window Create()
         {
-            var window = new DefaultWindow();
+            var window = new DefaultWindow
+            {
+                Height = 600,
+                Width = 900
+            };
             return window;
         }
 

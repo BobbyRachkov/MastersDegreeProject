@@ -9,11 +9,13 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,26 +10,29 @@ namespace MastersProject.SerialCommunicator
         private bool _isAsyncRunning = false;
         private bool _isSyncRunning = false;
         private readonly List<Exception> _errors;
-        private Action<TData>? _synchronousCallback;
         private const int DefaultBaudRate = 9600;
+
         public SerialPortCommunicator(IObjectTranslator<TData> translator)
         {
             _serialPort = new SerialPort();
             _translator = translator;
             _errors = new();
         }
+
         public IReadOnlyCollection<Exception> Errors => _errors;
         public event EventHandler<Exception>? ErrorOccured;
-        public event EventHandler<TData>? SynchronousReceived;
+        public event EventHandler<TData>? DataReceived;
+
         public string[] GetPortNames() => SerialPort.GetPortNames();
 
-        public void Setup(string portName, int baudRate)
+        public bool TrySetup(string portName, int baudRate)
         {
-            SetPortName(portName);
+            var res = TrySetPortName(portName);
             SetBaudRate(baudRate);
+            return res;
         }
 
-        public void StartAsync(Action<TData> callback)
+        public void StartAsync()
         {
             if (_isSyncRunning)
             {
@@ -46,7 +49,7 @@ namespace MastersProject.SerialCommunicator
             {
                 while (_isAsyncRunning)
                 {
-                    Read(callback);
+                    Read();
                 }
             });
 
@@ -54,45 +57,44 @@ namespace MastersProject.SerialCommunicator
             _otherThread.Start();
         }
 
-        public void StopAsync()
+        public void Stop()
         {
-            if (!_isAsyncRunning)
+            if (_isAsyncRunning)
             {
+                _isAsyncRunning = false;
+                _otherThread?.Join();
+                _serialPort.Close();
                 return;
             }
 
-            _isAsyncRunning = false;
-            _otherThread?.Join();
+            _isSyncRunning = false;
             _serialPort.Close();
         }
 
-        private TData? Read(Action<TData>? callback)
+        private TData? Read()
         {
             try
             {
                 var line = _serialPort.ReadLine();
                 var data = _translator.Translate(line);
-                if (callback is not null)
-                {
-                    callback(data);
-                }
+                DataReceived?.Invoke(this, data);
 
                 return data;
             }
             catch (Exception ex)
             {
-                _errors.Add(ex);
-                ErrorOccured?.Invoke(this, ex);
+                RaiseError(ex);
                 return default;
             }
         }
 
-        public void Start()
+        private void RaiseError(Exception ex)
         {
-            Start(null);
+            _errors.Add(ex);
+            ErrorOccured?.Invoke(this, ex);
         }
 
-        public void Start(Action<TData>? callback)
+        public void Start()
         {
             if (_isAsyncRunning)
             {
@@ -104,29 +106,7 @@ namespace MastersProject.SerialCommunicator
                 return;
             }
 
-            _synchronousCallback = callback;
-            _serialPort.DataReceived += SerialPort_DataReceived;
             _serialPort.Open();
-        }
-        public void Stop()
-        {
-            if (!_isSyncRunning)
-            {
-                return;
-            }
-
-            _isSyncRunning = false;
-            _serialPort.DataReceived -= SerialPort_DataReceived;
-            _serialPort.Close();
-        }
-
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            var data = Read(_synchronousCallback);
-            if (data is not null)
-            {
-                SynchronousReceived?.Invoke(this, data);
-            }
         }
 
         public void SetBaudRate(int newBaudRate)
@@ -144,9 +124,39 @@ namespace MastersProject.SerialCommunicator
             _serialPort.BaudRate = newBaudRate;
         }
 
-        public void SetPortName(string newPortName)
+        public bool TrySetPortName(string newPortName)
         {
+            var wasOpen = _serialPort.IsOpen;
+            if (wasOpen)
+            {
+                _serialPort.Close();
+            }
             _serialPort.PortName = newPortName;
+
+            try
+            {
+                _serialPort.Open();
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(IOException))
+                {
+                    Stop();
+                    return false;
+                }
+
+                Stop();
+                RaiseError(ex);
+                return false;
+            }
+            if (!wasOpen)
+            {
+                _serialPort.Close();
+            }
+            int oldBaudRate = _serialPort.BaudRate;
+            _serialPort.BaudRate = DefaultBaudRate;
+            SetBaudRate(oldBaudRate);
+            return true;
         }
 
         public void Restart()

@@ -6,26 +6,25 @@ namespace MastersProject.SerialCommunicator
     {
         IReadOnlyCollection<Exception> Errors { get; }
 
+
         event EventHandler<Exception>? ErrorOccured;
 
-        event EventHandler<TData>? SynchronousReceived;
 
-        void Setup(string portName, int baudRate);
+        event EventHandler<TData>? DataReceived;
+
+        bool TrySetup(string portName, int baudRate);
 
         string[] GetPortNames(); 
 
-        void StartAsync(Action<TData> callback);
-
-        void StopAsync();
+        void StartAsync();
 
         void Start();
-        void Start(Action<TData>? callback);
 
         void Stop();
 
         void SetBaudRate(int newBaudRate);
 
-        void SetPortName(string newPortName);
+        bool TrySetPortName(string newPortName);
 
         void Restart();
     }

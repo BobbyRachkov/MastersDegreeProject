@@ -25,11 +25,11 @@ namespace MastersProject.App
             builder.RegisterType<DefaultTranslator>()
                 .AsImplementedInterfaces();
 
-            builder.RegisterType<SerialPortCommunicator<AttitudeInformation>>()
-                .As<ISerialCommunicator<AttitudeInformation>>()
+            builder.RegisterType<SerialPortCommunicator<SerialData>>()
+                .As<ISerialCommunicator<SerialData>>()
                 .SingleInstance();
 
-            builder.RegisterType<MainViewModel>()
+            builder.RegisterType<SettingsViewModel>()
                 .AsSelf()
                 .SingleInstance(); 
             builder.RegisterType<PfdViewModel>()

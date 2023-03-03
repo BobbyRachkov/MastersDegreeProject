@@ -9,25 +9,89 @@
              d:DataContext="{d:DesignInstance Type=viewModels:PfdViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal"
+            Background="Transparent"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right">
+            <Button
+                Margin="5,0"
+                Command="{Binding RestartCommand}">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                Width="25" 
+                Height="25">
+                    <Canvas.LayoutTransform>
+                        <MatrixTransform Matrix="1,0,0,-1,0,0" />
+                    </Canvas.LayoutTransform>
+                    <Path Data="M256 388c-72.597 0-132-59.405-132-132 0-72.601 59.403-132 132-132 36.3 0 69.299 15.4 92.406 39.601L278 234h154V80l-51.698 51.702C348.406 99.798 304.406 80 256 80c-96.797 0-176 79.203-176 176s78.094 176 176 176c81.045 0 148.287-54.134 169.401-128H378.85c-18.745 49.561-67.138 84-122.85 84z"
+                  Stroke="{x:Null}"
+                  Fill="#FF636363"
+                  Stretch="Uniform"
+                  Width="25"
+                  Height="25"
+                  SnapsToDevicePixels="False"
+                  UseLayoutRounding="False"
+                  StrokeThickness="0"
+                  StrokeStartLineCap="flat"
+                  StrokeEndLineCap="flat"
+                  StrokeLineJoin="miter"/>
+                </Canvas>
+
+            </Button>
+            
+            <Button
+                Command="{Binding OpenSettingsCommand}">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                Width="25" 
+                Height="25">
+                    <Canvas.LayoutTransform>
+                        <MatrixTransform Matrix="1,0,0,-1,0,0" />
+                    </Canvas.LayoutTransform>
+                    <Path Data="M256 181c41 0 75 34 75 75s-34 75 -75 75s-75 -34 -75 -75s34 -75 75 -75zM415 235l45 -35c4 -3 5 -9 2 -14l-43 -74c-3 -5 -8 -6 -13 -4l-53 21c-11 -8 -23 -16 -36 -21l-8 -56c-1 -5 -5 -9 -10 -9h-86c-5 0 -9 4 -10 9l-8 56c-13 5 -25 12 -36 21l-53 -21 c-5 -2 -10 -1 -13 4l-43 74c-3 5 -2 11 2 14l45 35c-1 7 -1 14 -1 21s0 14 1 21l-45 35c-4 3 -5 9 -2 14l43 74c3 5 8 6 13 4l53 -21c11 8 23 16 36 21l8 56c1 5 5 9 10 9h86c5 0 9 -4 10 -9l8 -56c13 -5 25 -12 36 -21l53 21c5 2 10 1 13 -4l43 -74c3 -5 2 -11 -2 -14 l-45 -35c1 -7 1 -14 1 -21s0 -14 -1 -21z"
+                  Stroke="{x:Null}"
+                  Fill="#FF636363"
+                  Stretch="Uniform"
+                  Width="25"
+                  Height="25"
+                  SnapsToDevicePixels="False"
+                  UseLayoutRounding="False"
+                  StrokeThickness="0"
+                  StrokeStartLineCap="flat"
+                  StrokeEndLineCap="flat"
+                  StrokeLineJoin="miter"/>
+                </Canvas>
+
+            </Button>
+        </StackPanel>
+        
         <StackPanel>
-            <TextBlock
-                Foreground="White"
-                FontSize="50"
-                Text="{Binding AttitudeIndicator.RawPitch}"/>
-
-            <TextBlock
-                FontSize="50"
-                Foreground="White"
-                Text="{Binding AttitudeIndicator.RawRoll}"/>
-            <TextBlock
-                Foreground="White"
-                FontSize="50"
-                Text="{Binding AttitudeIndicator.Pitch,StringFormat=00.0°}"/>
-
-            <TextBlock
-                FontSize="50"
-                Foreground="White"
-                Text="{Binding AttitudeIndicator.Roll,StringFormat=00.0°}"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Foreground="White"
+                        FontSize="50"
+                        Text="{Binding AttitudeIndicator.RawPitch}"/>
+                    <TextBlock
+                        Margin="20,0"
+                        Foreground="White"
+                        FontSize="50"
+                        Text="{Binding AttitudeIndicator.Pitch,StringFormat=00.0°}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="50"
+                        Foreground="White"
+                        Text="{Binding AttitudeIndicator.RawRoll}"/>
+                    <TextBlock
+                        Margin="20,0"
+                        FontSize="50"
+                        Foreground="White"
+                        Text="{Binding AttitudeIndicator.Roll,StringFormat=00.0°}"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

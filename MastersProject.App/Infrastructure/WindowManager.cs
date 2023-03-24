@@ -89,11 +89,11 @@ namespace MastersProject.App.Infrastructure
 
         private void BindClosable<TViewModel>(Window window, TViewModel viewModel)
         {
+            window.Closed += (sender, _) => CloseWindow(sender as Window);
             if (viewModel is ICanClose canCloseVm)
             {
                 canCloseVm.Close += window.Close;
                 window.Closed += (sender, _) => canCloseVm.OnClose((sender as Window)?.DialogResult);
-                window.Closed += (sender, _) => CloseWindow(sender as Window);
             }
             if (viewModel is ICanCancelClose canCancelCloseVm)
             {

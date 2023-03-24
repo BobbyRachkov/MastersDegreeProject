@@ -28,8 +28,8 @@ namespace MastersProject.App.CoordinateSystem
         public ObservableCollection<DrawablePoint> Points { get; }
         public ObservableCollection<DrawableLine> Lines { get; }
 
-        public double MaxPositiveValueX { get; set; }
-        public double MaxPositiveValueY { get; set; }
+        public double MaxPositiveValueX { get; init; }
+        public double MaxPositiveValueY { get; init; }
 
         public double CanvasHeight
         {
@@ -39,6 +39,7 @@ namespace MastersProject.App.CoordinateSystem
                 _canvasHeight = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(HalfHeight));
+                NotifyPropertyChanged(nameof(CurrentMultiplierY));
                 RescaleY();
             }
         }
@@ -50,6 +51,7 @@ namespace MastersProject.App.CoordinateSystem
                 _canvasWidth = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(HalfWidth));
+                NotifyPropertyChanged(nameof(CurrentMultiplierX));
                 RescaleX();
             }
         }
@@ -57,30 +59,33 @@ namespace MastersProject.App.CoordinateSystem
         public double HalfHeight => CanvasHeight / 2;
         public double HalfWidth => CanvasWidth / 2;
 
+        public double CurrentMultiplierX => CanvasWidth / MaxPositiveValueX;
+        public double CurrentMultiplierY => CanvasHeight / MaxPositiveValueY;
+
         private void RescaleX()
         {
             foreach (var point in Points)
             {
-                point.MultiplierX = CanvasWidth / MaxPositiveValueX;
+                point.MultiplierX = CurrentMultiplierX;
             }
 
             foreach (var line in Lines)
             {
-                line.Point1.MultiplierX = CanvasWidth / MaxPositiveValueX;
-                line.Point2.MultiplierX = CanvasWidth / MaxPositiveValueX;
+                line.Point1.MultiplierX = CurrentMultiplierX;
+                line.Point2.MultiplierX = CurrentMultiplierX;
             }
         }
         private void RescaleY()
         {
             foreach (var point in Points)
             {
-                point.MultiplierY = CanvasHeight / MaxPositiveValueY;
+                point.MultiplierY = CurrentMultiplierY;
             }
 
             foreach (var line in Lines)
             {
-                line.Point1.MultiplierY = CanvasHeight / MaxPositiveValueY;
-                line.Point2.MultiplierY = CanvasHeight / MaxPositiveValueY;
+                line.Point1.MultiplierY = CurrentMultiplierY;
+                line.Point2.MultiplierY = CurrentMultiplierY;
             }
         }
     }

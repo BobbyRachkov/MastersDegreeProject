@@ -9,12 +9,12 @@ namespace MastersProject.App.MathEngine
 {
     public sealed class LinearRegressionCalculator : IApproximationEngine
     {
-        EquationDescriptor IApproximationEngine.CalculateEquation(Point[] points)
+        Equation IApproximationEngine.CalculateEquation(Point[] points)
         {
             var x = points.Select(p => p.X).ToArray();
             var y = points.Select(p => p.Y).ToArray();
             var equationMembers = Fit.Line(x, y);
-            return new EquationDescriptor(equationMembers.B, equationMembers.A);
+            return new Equation(equationMembers.B, equationMembers.A);
         }
     }
 }

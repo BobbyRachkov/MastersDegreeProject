@@ -28,34 +28,66 @@
             <ContentControl
                 Margin="5"
                 Grid.Column="0"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                Height="201"
-                Width="201"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
                 Content="{Binding Graph}"/>
             <StackPanel
                 Orientation="Vertical"
                 Grid.Column="1">
                 <Button
+                    Command="{Binding ClearLinesCommand}"
                     Height="30"
                     Margin="10,2">
                     Clear lines
                 </Button>
                 <Button
+                    Command="{Binding ClearDotsCommand}"
                     Height="30"
                     Margin="10,2">
                     Clear dots
                 </Button>
                 <Button
+                    Command="{Binding CalculateTrendLineCommand}"
                     Height="30"
                     Margin="10,2">
                     Calculate trend line
                 </Button>
                 <Button
+                    Command="{Binding PickDotCommand}"
                     Height="30"
                     Margin="10,2">
                     Pick a dot
                 </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding UseEquationCommand}"
+                        Height="30"
+                        Margin="10,2,2,2">
+                        Use equation
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding RevertEquationCommand}"
+                        Height="30"
+                        Margin="2,2,10,2">
+                        Revert
+                    </Button>
+                </Grid>
+                <TextBlock
+                    Margin="10,2">
+                    y = k.x + c
+                </TextBlock>
+
+                <TextBlock
+                    Margin="10,2">
+                    y = <TextBlock Text="{Binding Equation.SlopeCoefficient, StringFormat=0.000000000}"/>*x + 
+                    <TextBlock Text="{Binding Equation.OffsetConstant, StringFormat=0.000000000}"/>
+                </TextBlock>
             </StackPanel>
         </Grid>
     </Grid>

@@ -7,7 +7,7 @@ namespace MastersProject.SerialCommunicator
         IReadOnlyCollection<Exception> Errors { get; }
 
 
-        event EventHandler<Exception>? ErrorOccured;
+        event EventHandler<Exception>? ErrorOccurred;
 
 
         event EventHandler<TData>? DataReceived;

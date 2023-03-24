@@ -48,7 +48,12 @@ namespace MastersProject.App.CoordinateSystem.Models
             _multiplierY = multiplierY;
             _fill = fill;
             _border = border;
+            TransformX = new();
+            TransformY = new();
         }
+
+        public Transform TransformX { get; init; }
+        public Transform TransformY { get; init; }
 
         public double X
         {
@@ -72,24 +77,15 @@ namespace MastersProject.App.CoordinateSystem.Models
             }
         }
 
-        public double ComputedX
-        {
-            get => X * MultiplierX;
-            set => X = value / MultiplierX;
-        }
+        public double ComputedX => TransformX.Calculate(X) * MultiplierX;
 
-        public double ComputedY
-        {
-            get => Y * MultiplierY;
-            set => Y = value / MultiplierY;
-        }
+        public double ComputedY => TransformY.Calculate(Y) * MultiplierY;
 
         public double MultiplierX
         {
             get => _multiplierX;
             set
             {
-                value.AssertNotZero(nameof(MultiplierX));
                 _multiplierX = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(ComputedX));
@@ -101,7 +97,6 @@ namespace MastersProject.App.CoordinateSystem.Models
             get => _multiplierY;
             set
             {
-                value.AssertNotZero(nameof(MultiplierY));
                 _multiplierY = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(ComputedY));

@@ -15,6 +15,7 @@ using MastersProject.App.MathEngine;
 using Point = MastersProject.App.MathEngine.Point;
 using MastersProject.App.CoordinateSystem;
 using MastersProject.App.CoordinateSystem.Models;
+using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.UserControls;
 
 namespace MastersProject.App.ViewModels
@@ -24,11 +25,12 @@ namespace MastersProject.App.ViewModels
         private readonly ISerialCommunicator<SerialData> _serialCommunicator;
         private readonly ICollection<string> _serialPortNames;
         private string? _selectedSerialPort;
-        private double _xCoordinate;
-        private double _yCoordinate;
         private DrawablePoint _currentPoint;
 
-        public SettingsViewModel(ISerialCommunicator<SerialData> serialCommunicator)
+        public SettingsViewModel(
+            ISerialCommunicator<SerialData> serialCommunicator,
+            IApproximationEngine approximationEngine,
+            IWindowManager windowManager)
         {
             _serialPortNames = serialCommunicator.GetPortNames();
             _serialCommunicator = serialCommunicator;
@@ -36,11 +38,11 @@ namespace MastersProject.App.ViewModels
             serialCommunicator.DataReceived += SerialCommunicator_DataReceived;
 
             DemoGraph = new CoordinateSystemViewModel(1023, 1023);
-            PitchSetup = new()
+            PitchSetup = new(this, approximationEngine, windowManager)
             {
                 Title = "Pitch"
             };
-            RollSetup= new()
+            RollSetup = new(this, approximationEngine, windowManager)
             {
                 Title = "Roll"
             };
@@ -54,6 +56,8 @@ namespace MastersProject.App.ViewModels
         {
             _currentPoint.X = e.Roll;
             _currentPoint.Y = e.Pitch;
+            PitchSetup.AttitudeValue = e.Pitch;
+            RollSetup.AttitudeValue = e.Roll;
         }
 
         private void AddPointToGraph()
@@ -78,7 +82,7 @@ namespace MastersProject.App.ViewModels
                 return;
             }
 
-            if(!ReferenceEquals(line.Point2, lockedPoint))
+            if (!ReferenceEquals(line.Point2, lockedPoint))
             {
                 line = new DrawableLine(lockedPoint, _currentPoint, Brushes.Blue, 1);
                 DemoGraph.Lines.Add(line);

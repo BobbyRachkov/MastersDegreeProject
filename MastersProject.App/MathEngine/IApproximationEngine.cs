@@ -9,6 +9,6 @@ namespace MastersProject.App.MathEngine
 {
     internal interface IApproximationEngine
     {
-        EquationDescriptor CalculateEquation(Point[] points);
+        Equation CalculateEquation(Point[] points);
     }
 }

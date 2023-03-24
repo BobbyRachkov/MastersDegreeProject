@@ -12,7 +12,7 @@ namespace MastersProject.App.Infrastructure
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void NotifyPropertyChanged([CallerMemberName] string memberName = "")
+        protected void NotifyPropertyChanged([CallerMemberName] string memberName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }

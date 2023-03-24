@@ -6,6 +6,7 @@ using MastersProject.App.Models;
 using MastersProject.App.Translators;
 using MastersProject.App.ViewModels;
 using MastersProject.SerialCommunicator;
+using MastersProject.SerialCommunicator.SerialWrapper;
 
 namespace MastersProject.App
 {
@@ -17,6 +18,8 @@ namespace MastersProject.App
                 .AsImplementedInterfaces();
             builder.RegisterType<PfdWindowFactory>()
                 .AsImplementedInterfaces();
+            builder.RegisterType<DotSelectorFactory>()
+                .AsImplementedInterfaces();
 
             builder.RegisterType<WindowManager>()
                 .AsImplementedInterfaces()
@@ -25,6 +28,13 @@ namespace MastersProject.App
             builder.RegisterType<DefaultTranslator>()
                 .AsImplementedInterfaces();
 
+            builder.RegisterType<AttitudeProvider>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<MockWrapper>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder.RegisterType<SerialPortCommunicator<SerialData>>()
                 .As<ISerialCommunicator<SerialData>>()
                 .SingleInstance();

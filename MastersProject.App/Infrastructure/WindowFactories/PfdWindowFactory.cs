@@ -14,6 +14,7 @@ namespace MastersProject.App.Infrastructure.WindowFactories
         public override Window Create()
         {
             var window = base.Create();
+            window.Title = "PFD";
             window.Height = 600;
             window.Width = 600;
             window.Background = Brushes.Black;

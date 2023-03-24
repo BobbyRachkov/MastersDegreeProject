@@ -1,37 +1,48 @@
-﻿using System.IO.Ports;
-using MastersProject.SerialCommunicator.SerialWrapper;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Ports;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MastersProject.SerialCommunicator
 {
-    public class SerialPortCommunicator<TData> : ISerialCommunicator<TData>
+    public class MockCommunicator<TData> : ISerialCommunicator<TData>
     {
         private readonly IObjectTranslator<TData> _translator;
-        private readonly ISerialWrapper _serialPortProvider;
+        private readonly SerialPort _serialPort;
         private Task? _asyncTask;
         private CancellationTokenSource? _asyncTaskCancellationTokenSource;
         private bool _isAsyncRunning = false;
         private bool _isSyncRunning = false;
         private readonly List<Exception> _errors;
         private const int DefaultBaudRate = 9600;
+        private Random _random;
 
-        public SerialPortCommunicator(IObjectTranslator<TData> translator,ISerialWrapper wrapper)
+        public MockCommunicator(IObjectTranslator<TData> translator)
         {
-            _serialPortProvider = wrapper;
+            _serialPort = new SerialPort();
             _translator = translator;
             _errors = new();
+            _random = new();
         }
 
         public IReadOnlyCollection<Exception> Errors => _errors;
         public event EventHandler<Exception>? ErrorOccurred;
         public event EventHandler<TData>? DataReceived;
 
-        public string[] GetPortNames() => SerialPort.GetPortNames();
-
         public bool TrySetup(string portName, int baudRate)
         {
-            var res = TrySetPortName(portName);
-            SetBaudRate(baudRate);
-            return res;
+            return true;
+        }
+
+        public string[] GetPortNames()
+        {
+            return Enumerable
+                .Range(1, 8)
+                .Select(c => $"Dummy COM{c}")
+                .ToArray();
         }
 
         public void StartAsync()
@@ -47,7 +58,7 @@ namespace MastersProject.SerialCommunicator
             }
 
             _isAsyncRunning = true;
-            _asyncTaskCancellationTokenSource=new CancellationTokenSource();
+            _asyncTaskCancellationTokenSource = new CancellationTokenSource();
             _asyncTask = Task.Factory.StartNew(() =>
             {
                 while (true)
@@ -59,7 +70,7 @@ namespace MastersProject.SerialCommunicator
                 TaskCreationOptions.LongRunning,
                 TaskScheduler.Default);
 
-            _serialPortProvider.Open();
+            _serialPort.Open();
         }
 
         public void Stop()
@@ -68,19 +79,19 @@ namespace MastersProject.SerialCommunicator
             {
                 _isAsyncRunning = false;
                 _asyncTaskCancellationTokenSource?.Cancel();
-                _serialPortProvider.Close();
+                _serialPort.Close();
                 return;
             }
 
             _isSyncRunning = false;
-            _serialPortProvider.Close();
+            _serialPort.Close();
         }
 
         private TData? Read()
         {
             try
             {
-                var line = _serialPortProvider.ReadLine();
+                var line = $"12;1020;";
                 var data = _translator.Translate(line);
                 DataReceived?.Invoke(this, data);
 
@@ -111,63 +122,22 @@ namespace MastersProject.SerialCommunicator
                 return;
             }
 
-            _serialPortProvider.Open();
+            _serialPort.Open();
         }
 
         public void SetBaudRate(int newBaudRate)
         {
-            var wasClosed = !_serialPortProvider.IsOpen;
-            if (wasClosed)
-            {
-                _serialPortProvider.Open();
-            }
-            _serialPortProvider.WriteLine(newBaudRate.ToString());
-            if (wasClosed)
-            {
-                _serialPortProvider.Close();
-            }
-            _serialPortProvider.BaudRate = newBaudRate;
+            
         }
 
         public bool TrySetPortName(string newPortName)
         {
-            var wasOpen = _serialPortProvider.IsOpen;
-            if (wasOpen)
-            {
-                _serialPortProvider.Close();
-            }
-            _serialPortProvider.PortName = newPortName;
-
-            try
-            {
-                _serialPortProvider.Open();
-            }
-            catch (IOException)
-            {
-                Stop();
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Stop();
-                RaiseError(ex);
-                return false;
-            }
-            if (!wasOpen)
-            {
-                _serialPortProvider.Close();
-            }
-            int oldBaudRate = _serialPortProvider.BaudRate;
-            _serialPortProvider.BaudRate = DefaultBaudRate;
-            SetBaudRate(oldBaudRate);
             return true;
         }
 
         public void Restart()
         {
-            var oldBaudRate = _serialPortProvider.BaudRate;
-            _serialPortProvider.BaudRate = DefaultBaudRate;
-            SetBaudRate(oldBaudRate);
+            
         }
     }
 }

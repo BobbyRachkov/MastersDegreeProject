@@ -2,13 +2,13 @@
 
 namespace MastersProject.App.MathEngine
 {
-    internal sealed class Equation
+    internal sealed class LinearEquation : IEquation
     {
         public double SlopeCoefficient { get; }
 
         public double OffsetConstant { get; }
 
-        public Equation(double slopeCoefficient, double offsetConstant)
+        public LinearEquation(double slopeCoefficient, double offsetConstant)
         {
             SlopeCoefficient = slopeCoefficient;
             OffsetConstant = offsetConstant;

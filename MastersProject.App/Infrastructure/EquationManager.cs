@@ -1,15 +1,16 @@
 ﻿using System.Collections.ObjectModel;
+using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.MathEngine;
 
 namespace MastersProject.App.Infrastructure;
 
-internal class EquationManager : PropertyChangedBase
+internal class EquationManager : ViewModelBase
 {
-    private Equation _rollEquation = null!;
-    private Equation _pitchEquation = null!;
+    private IEquation _rollEquation = null!;
+    private IEquation _pitchEquation = null!;
 
 
-    public EquationManager(Equation rollEquation, Equation pitchEquation)
+    public EquationManager(IEquation rollEquation, IEquation pitchEquation)
     {
         SetNewPitchEquation(pitchEquation);
         SetNewRollEquation(rollEquation);
@@ -18,7 +19,7 @@ internal class EquationManager : PropertyChangedBase
     }
 
 
-    public Equation PitchEquation
+    public IEquation PitchEquation
     {
         get => _pitchEquation;
         private set
@@ -28,7 +29,7 @@ internal class EquationManager : PropertyChangedBase
         }
     }
 
-    public Equation RollEquation
+    public IEquation RollEquation
     {
         get => _rollEquation;
         private set
@@ -38,10 +39,10 @@ internal class EquationManager : PropertyChangedBase
         }
     }
 
-    public ObservableCollection<Equation> PitchEquationsHistory { get; }
-    public ObservableCollection<Equation> RollEquationsHistory { get; }
+    public ObservableCollection<IEquation> PitchEquationsHistory { get; }
+    public ObservableCollection<IEquation> RollEquationsHistory { get; }
 
-    public void SetNewPitchEquation(Equation equation)
+    public void SetNewPitchEquation(IEquation equation)
     {
         PitchEquationsHistory.Insert(0, equation);
         PitchEquation = equation;
@@ -50,7 +51,7 @@ internal class EquationManager : PropertyChangedBase
     {
         PitchEquation = PitchEquationsHistory[index];
     }
-    public void SetNewRollEquation(Equation equation)
+    public void SetNewRollEquation(IEquation equation)
     {
         RollEquationsHistory.Insert(0, equation);
         RollEquation = equation;

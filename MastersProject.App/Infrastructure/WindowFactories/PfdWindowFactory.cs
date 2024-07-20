@@ -9,8 +9,8 @@ namespace MastersProject.App.Infrastructure.WindowFactories
         {
             var window = base.Create();
             window.Title = "PFD";
-            window.Height = 600;
-            window.Width = 600;
+            window.Height = 768;
+            window.Width = 768;
             window.Background = Brushes.Black;
             window.WindowStyle = WindowStyle.SingleBorderWindow;
             window.ResizeMode = ResizeMode.NoResize;

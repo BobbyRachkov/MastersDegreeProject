@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MastersProject.App.Infrastructure
+namespace MastersProject.App.Infrastructure.Mvvm
 {
     internal abstract class PropertyChangedBase : INotifyPropertyChanged
     {

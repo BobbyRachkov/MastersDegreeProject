@@ -4,7 +4,8 @@
              xmlns:viewModels="clr-namespace:MastersProject.App.ViewModels"
              xmlns:views="clr-namespace:MastersProject.App.Views"
              xmlns:coordinateSystem="clr-namespace:MastersProject.App.CoordinateSystem"
-             xmlns:userControls="clr-namespace:MastersProject.App.UserControls">
+             xmlns:userControls="clr-namespace:MastersProject.App.UserControls"
+             xmlns:portSelector="clr-namespace:MastersProject.App.ViewModels.PortSelector">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,6 +24,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type userControls:MathSetupPaneViewModel}">
                         <userControls:MathSetupPaneView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type portSelector:PortSelectorViewModel}">
+                        <views:PortSelectorView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

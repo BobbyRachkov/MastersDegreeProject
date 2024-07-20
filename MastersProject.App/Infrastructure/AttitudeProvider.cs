@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Windows.Threading;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.Serial;
 
 namespace MastersProject.App.Infrastructure
 {
-    internal sealed class AttitudeProvider : PropertyChangedBase, IAttitudeProvider, IDisposable
+    internal sealed class AttitudeProvider : ViewModelBase, IAttitudeProvider, IDisposable
     {
         private readonly ISerialCommunicator<SerialData> _serial;
         private readonly List<Exception> _errors;
-        private Equation _pitchEquation;
-        private Equation _rollEquation;
+        private IEquation _pitchEquation;
+        private IEquation _rollEquation;
         private int _rawPitch;
         private int _rawRoll;
 
@@ -21,24 +22,20 @@ namespace MastersProject.App.Infrastructure
         {
             _serial = serial;
             _errors = new();
-            _pitchEquation = new Equation(0, 0);
-            _rollEquation = new Equation(0, 0);
+            _pitchEquation = new LinearEquation(0, 0);
+            _rollEquation = new LinearEquation(0, 0);
 
             Point[] points = new[]
             {
                 new Point(1023, 60),
                 new Point(0,-60)
             };
-            var eqn = approximationEngine.CalculateEquation(points);
+            var eqn = approximationEngine.CalculateEquation(points, EquationOrder.Linear);
 
             PitchEquation = eqn;
             RollEquation = eqn;
 
-
-            _serial.TrySetup("COM8", 9600);
             _serial.DataReceived += Serial_DataReceived;
-            _serial.StartAsync();
-
             _serial.ErrorOccurred += Serial_ErrorOccurred;
 
         }
@@ -87,7 +84,7 @@ namespace MastersProject.App.Infrastructure
 
         public int Index { get; set; }
 
-        public Equation PitchEquation
+        public IEquation PitchEquation
         {
             get => _pitchEquation;
             set
@@ -98,7 +95,7 @@ namespace MastersProject.App.Infrastructure
             }
         }
 
-        public Equation RollEquation
+        public IEquation RollEquation
         {
             get => _rollEquation;
             set
@@ -111,7 +108,7 @@ namespace MastersProject.App.Infrastructure
 
         private void UpdateRawValues(SerialData newData)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            OnUiThread(() =>
             {
                 RawPitch = newData.Pitch;
                 RawRoll = newData.Roll;

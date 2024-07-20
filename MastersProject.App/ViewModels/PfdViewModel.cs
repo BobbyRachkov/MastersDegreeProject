@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.Infrastructure.Mvvm;
 
 namespace MastersProject.App.ViewModels
 {
@@ -13,7 +13,8 @@ namespace MastersProject.App.ViewModels
 
         public PfdViewModel( 
             SettingsViewModel settingsViewModel,
-            IWindowManager windowManager, IAttitudeProvider attitudeIndicator)
+            IWindowManager windowManager,
+            IAttitudeProvider attitudeIndicator)
         {
             _settingsViewModel = settingsViewModel;
             _windowManager = windowManager;

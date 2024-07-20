@@ -11,11 +11,13 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
-    <Folder Include="Converters\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>

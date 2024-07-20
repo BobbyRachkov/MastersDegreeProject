@@ -2,6 +2,6 @@
 {
     internal interface IApproximationEngine
     {
-        Equation CalculateEquation(Point[] points);
+        IEquation CalculateEquation(Point[] points, EquationOrder order);
     }
 }

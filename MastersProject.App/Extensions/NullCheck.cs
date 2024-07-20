@@ -11,7 +11,7 @@ namespace MastersProject.App.Extensions
                 throw new NullReferenceException(message);
             }
         }
-        public static void AssertNotZero(this object? obj, string memberName, string message = "Member {0} cannot me zero.")
+        public static void AssertNotZero(this object? obj, string memberName, string message = "Member {0} cannot be zero.")
         {
             if (obj is 0 or 0.0)
             {

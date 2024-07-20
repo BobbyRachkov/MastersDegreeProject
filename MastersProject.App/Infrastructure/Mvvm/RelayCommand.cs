@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MastersProject.App.Infrastructure
+namespace MastersProject.App.Infrastructure.Mvvm
 {
     internal class RelayCommand : ICommand
     {
@@ -52,9 +52,9 @@ namespace MastersProject.App.Infrastructure
 
         public bool CanExecute(object? parameter)
         {
-            return (_canExecute is null && _canExecuteWithoutParameter is null)
-                   || (_canExecuteWithoutParameter is not null && _canExecuteWithoutParameter())
-                   || (_canExecute is not null && _canExecute(parameter));
+            return _canExecute is null && _canExecuteWithoutParameter is null
+                   || _canExecuteWithoutParameter is not null && _canExecuteWithoutParameter()
+                   || _canExecute is not null && _canExecute(parameter);
         }
 
         public void Execute(object? parameter)

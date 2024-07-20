@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace MastersProject.App.Infrastructure
+namespace MastersProject.App.Infrastructure.Mvvm
 {
-    internal class ViewModelBase:PropertyChangedBase
+    internal class ViewModelBase : PropertyChangedBase
     {
         protected void OnUiThread(Action action)
         {

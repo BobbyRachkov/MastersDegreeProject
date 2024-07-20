@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
 using MastersProject.Serial;
+using MastersProject.Serial.SerialWrapper;
 
 namespace MastersProject.ArduinoReadTest
 {
@@ -29,16 +30,16 @@ namespace MastersProject.ArduinoReadTest
         static void Main(string[] args)
         {
             //OldTest();
-            _serialCommunicator = new SerialPortCommunicator<SerialData>(new SerialTranslator());
-            _serialCommunicator.Setup("COM7", 2000000);
-            _serialCommunicator.StartAsync((d) =>
-            {
-                //Console.WriteLine(d);
-                data.Add(d);
-            });
+            _serialCommunicator = new SerialPortCommunicator<SerialData>(new SerialTranslator(), new SerialWrapper());
+            _serialCommunicator.TrySetup("COM7", 2000000);
+            //_serialCommunicator.StartAsync((d) =>
+            //{
+            //    //Console.WriteLine(d);
+            //    data.Add(d);
+            //});
             int millis = 5 * 1000;
             Task.Delay(millis).Wait();
-            _serialCommunicator.StopAsync();
+            _serialCommunicator.Stop();
 
             Console.WriteLine(data.Count);
             Console.WriteLine((data.Count * 1.0 / millis) * 1000 + " per second");

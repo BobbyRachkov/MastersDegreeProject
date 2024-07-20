@@ -2,7 +2,7 @@
 
 namespace MastersProject.Serial.SerialWrapper
 {
-    internal class SerialWrapper : ISerialWrapper
+    public class SerialWrapper : ISerialWrapper
     {
         private readonly SerialPort _serialPort;
 

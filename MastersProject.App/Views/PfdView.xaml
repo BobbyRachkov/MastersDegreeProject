@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:MastersProject.App.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:PfdViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="768" d:DesignWidth="768">
     <Grid>
         <StackPanel
+            Panel.ZIndex="200"
             Margin="5"
             Orientation="Horizontal"
             Background="Transparent"
@@ -38,7 +40,7 @@
                 </Canvas>
 
             </Button>
-            
+
             <Button
                 Command="{Binding OpenSettingsCommand}">
                 <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -64,8 +66,9 @@
 
             </Button>
         </StackPanel>
-        
-        <StackPanel>
+
+        <StackPanel
+            Panel.ZIndex="200">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -91,5 +94,40 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
+        <Image
+            Panel.ZIndex="10"
+            Stretch="None"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Source="D:\Programming\MastersProject\MastersProject.App\Images/PFD_Foreground_filled.png">
+
+        </Image>
+        <Grid
+            Height="1093"
+            ClipToBounds="False"
+            Panel.ZIndex="5"
+            Margin="0 25 105 0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            RenderTransformOrigin="0.5 0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="{Binding AttitudeIndicator.Roll}"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Image
+                ClipToBounds="False"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Stretch="None"
+                Source="D:\Programming\MastersProject\MastersProject.App\Images/PFD_Horizon_2.png"
+                RenderTransformOrigin="0.5 0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform Y="{Binding AttitudeIndicator.Pitch}"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
     </Grid>
 </UserControl>

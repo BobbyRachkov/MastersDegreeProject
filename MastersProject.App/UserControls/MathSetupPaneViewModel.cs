@@ -3,8 +3,8 @@ using System.Linq;
 using System.Windows.Media;
 using MastersProject.App.CoordinateSystem;
 using MastersProject.App.CoordinateSystem.Models;
-using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.MathEngine;
 using MastersProject.App.ViewModels;
@@ -16,20 +16,22 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
     private readonly SettingsViewModel _settingsViewModel;
     private readonly IApproximationEngine _approximationEngine;
     private readonly IWindowManager _windowManager;
-    private Equation _equation;
-    private readonly Action<Equation> _applyEquationCallback;
-    private Equation _previousEquation;
+    private IEquation _equation;
+    private readonly Action<IEquation> _applyEquationCallback;
+    private IEquation _previousEquation;
     private double _attitudeValue;
 
     public MathSetupPaneViewModel(
         SettingsViewModel settingsViewModel,
         IApproximationEngine approximationEngine,
-        IWindowManager windowManager)
+        IWindowManager windowManager,
+        Action<IEquation> applyEquationCallback)
     {
         _settingsViewModel = settingsViewModel;
         _approximationEngine = approximationEngine;
+        _applyEquationCallback = applyEquationCallback;
         _windowManager = windowManager;
-        _equation = new(0, 0);
+        _equation = new LinearEquation(0, 0);
 
         Graph = new(1023, 180);
         var selectorLine = new DrawableLine(
@@ -47,7 +49,7 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
             () => Graph.Points.Count > 1 && Graph.Lines.Count == 1);
         PickDotCommand = new(PickDot);
         UseEquationCommand = new(UseEquation);
-        RevertEquationCommand=new (RevertEquation);
+        RevertEquationCommand = new(RevertEquation);
     }
 
     public string Title { get; init; }
@@ -65,7 +67,7 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
         }
     }
 
-    public Equation Equation
+    public IEquation Equation
     {
         get => _equation;
         set
@@ -90,7 +92,7 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
             .Points
             .Select(p => new Point(p.X, p.Y))
             .ToArray();
-        Equation = _approximationEngine.CalculateEquation(points);
+        Equation = _approximationEngine.CalculateEquation(points, EquationOrder.Linear);
 
         var p1 = new DrawablePoint(
             0,

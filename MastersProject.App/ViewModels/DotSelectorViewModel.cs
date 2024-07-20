@@ -1,6 +1,6 @@
 ﻿using System;
-using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.Infrastructure.Mvvm;
 
 namespace MastersProject.App.ViewModels
 {

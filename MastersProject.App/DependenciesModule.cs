@@ -1,53 +1,36 @@
 ﻿using Autofac;
+using JetBrains.Annotations;
+using MastersProject.App.Extensions;
 using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.App.Translators;
 using MastersProject.App.ViewModels;
+using MastersProject.App.ViewModels.PortSelector;
 using MastersProject.Serial;
 using MastersProject.Serial.SerialWrapper;
 
 namespace MastersProject.App
 {
-    internal sealed class DependenciesModule:Module
+    [UsedImplicitly]
+    internal sealed class DependenciesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DefaultWindowFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<PfdWindowFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<DotSelectorFactory>()
-                .AsImplementedInterfaces();
+            builder.RegisterWindowFactories();
 
-            builder.RegisterType<WindowManager>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
+            builder.RegisterSerialCommunicator();
 
-            builder.RegisterType<DefaultTranslator>()
-                .AsImplementedInterfaces();
+            builder.RegisterViewModels();
+
+
+            builder.RegisterType<CurveCalculator>()
+                .As<IApproximationEngine>();
 
             builder.RegisterType<AttitudeProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-
-            builder.RegisterType<MockWrapper>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder.RegisterType<SerialPortCommunicator<SerialData>>()
-                .As<ISerialCommunicator<SerialData>>()
-                .SingleInstance();
-
-            builder.RegisterType<SettingsViewModel>()
-                .AsSelf()
-                .SingleInstance(); 
-            builder.RegisterType<PfdViewModel>()
-                .AsSelf()
-                .SingleInstance();
-
-            builder.RegisterType<LinearRegressionCalculator>()
-                .As<IApproximationEngine>();
         }
     }
 }

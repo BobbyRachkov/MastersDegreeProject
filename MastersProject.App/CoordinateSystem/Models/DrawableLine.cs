@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media;
-using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.Mvvm;
 
 namespace MastersProject.App.CoordinateSystem.Models;
 
@@ -7,7 +7,7 @@ internal class DrawableLine : PropertyChangedBase
 {
     private DrawablePoint _point1;
     private DrawablePoint _point2;
-    private Brush _fill;
+    private Brush? _fill;
     private double _thickness;
 
 

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows.Media;
-using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.Mvvm;
 
 namespace MastersProject.App.CoordinateSystem.Models
 {

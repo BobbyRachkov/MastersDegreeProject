@@ -14,7 +14,7 @@ namespace MastersProject.Serial
         private readonly List<Exception> _errors;
         private const int DefaultBaudRate = 9600;
 
-        public SerialPortCommunicator(IObjectTranslator<TData> translator,ISerialWrapper wrapper)
+        public SerialPortCommunicator(IObjectTranslator<TData> translator, ISerialWrapper wrapper)
         {
             _serialPortProvider = wrapper;
             _translator = translator;
@@ -47,7 +47,7 @@ namespace MastersProject.Serial
             }
 
             _isAsyncRunning = true;
-            _asyncTaskCancellationTokenSource=new CancellationTokenSource();
+            _asyncTaskCancellationTokenSource = new CancellationTokenSource();
             _asyncTask = Task.Factory.StartNew(() =>
             {
                 while (true)

@@ -3,8 +3,8 @@ using System.Linq;
 using System.Windows.Media;
 using MastersProject.App.CoordinateSystem;
 using MastersProject.App.CoordinateSystem.Models;
-using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.App.UserControls;
@@ -22,7 +22,8 @@ namespace MastersProject.App.ViewModels
         public SettingsViewModel(
             ISerialCommunicator<SerialData> serialCommunicator,
             IApproximationEngine approximationEngine,
-            IWindowManager windowManager)
+            IWindowManager windowManager,
+            IAttitudeProvider attitudeProvider)
         {
             _serialPortNames = serialCommunicator.GetPortNames();
             _serialCommunicator = serialCommunicator;
@@ -30,18 +31,26 @@ namespace MastersProject.App.ViewModels
             serialCommunicator.DataReceived += SerialCommunicator_DataReceived;
 
             DemoGraph = new CoordinateSystemViewModel(1023, 1023);
-            PitchSetup = new(this, approximationEngine, windowManager)
+            PitchSetup = new(
+                this,
+                approximationEngine,
+                windowManager,
+                e => attitudeProvider.PitchEquation = e)
             {
                 Title = "Pitch"
             };
-            RollSetup = new(this, approximationEngine, windowManager)
+            RollSetup = new(
+                this,
+                approximationEngine,
+                windowManager,
+            e => attitudeProvider.RollEquation = e)
             {
                 Title = "Roll"
             };
 
             _currentPoint = new DrawablePoint(0, 0, Brushes.Red);
             DemoGraph.Points.Add(_currentPoint);
-            AddPointClick = new RelayCommand((_) => AddPointToGraph());
+            AddPointClick = new RelayCommand(AddPointToGraph);
         }
 
         private void SerialCommunicator_DataReceived(object? sender, SerialData e)

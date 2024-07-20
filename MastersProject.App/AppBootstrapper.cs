@@ -4,6 +4,7 @@ using Autofac;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.ViewModels;
+using MastersProject.App.ViewModels.PortSelector;
 
 namespace MastersProject.App
 {
@@ -17,8 +18,8 @@ namespace MastersProject.App
             _container = builder.Build();
 
             var windowManager = _container.Resolve<IWindowManager>();
-            windowManager.SetActiveFactory<PfdWindowFactory>();
-            windowManager.ShowWindow<PfdViewModel>();
+            windowManager.SetActiveFactory<DynamicWindowFactory>();
+            windowManager.ShowWindow<PortSelectorViewModel>();
         }
         public static void OnShutdown()
         {

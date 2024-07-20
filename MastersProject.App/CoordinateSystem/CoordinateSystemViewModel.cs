@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using MastersProject.App.CoordinateSystem.Models;
-using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.Mvvm;
 
 namespace MastersProject.App.CoordinateSystem
 {

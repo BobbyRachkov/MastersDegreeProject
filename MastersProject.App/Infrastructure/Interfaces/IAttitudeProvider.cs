@@ -12,8 +12,8 @@ internal interface IAttitudeProvider
     int RawRoll { get; }
     long Timestamp { get; }
     int Index { get; }
-    Equation PitchEquation { get; set; }
-    Equation RollEquation { get; set; }
+    IEquation PitchEquation { get; set; }
+    IEquation RollEquation { get; set; }
     void RestartConnection();
     string ToString();
     event PropertyChangedEventHandler? PropertyChanged;

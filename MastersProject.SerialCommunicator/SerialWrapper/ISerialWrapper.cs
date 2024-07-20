@@ -1,4 +1,4 @@
-﻿namespace MastersProject.SerialCommunicator.SerialWrapper;
+﻿namespace MastersProject.Serial.SerialWrapper;
 
 public interface ISerialWrapper
 {

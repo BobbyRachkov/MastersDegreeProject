@@ -1,7 +1,4 @@
-﻿using System.IO.Ports;
-using System.Runtime.InteropServices;
-
-namespace MastersProject.SerialCommunicator.SerialWrapper;
+﻿namespace MastersProject.Serial.SerialWrapper;
 
 public class MockWrapper : ISerialWrapper
 {

@@ -1,6 +1,6 @@
-﻿using MastersProject.SerialCommunicator;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Ports;
+using MastersProject.Serial;
 
 namespace MastersProject.ArduinoReadTest
 {

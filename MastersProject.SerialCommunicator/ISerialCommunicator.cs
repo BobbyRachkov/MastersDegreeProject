@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace MastersProject.SerialCommunicator
+﻿namespace MastersProject.Serial
 {
     public interface ISerialCommunicator<TData>
     {

@@ -8,7 +8,6 @@ using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.MathEngine;
 using MastersProject.App.ViewModels;
-using Transform = MastersProject.App.CoordinateSystem.Models.Transform;
 
 namespace MastersProject.App.UserControls;
 

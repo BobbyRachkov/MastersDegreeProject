@@ -5,8 +5,8 @@ using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
 using MastersProject.App.Translators;
 using MastersProject.App.ViewModels;
-using MastersProject.SerialCommunicator;
-using MastersProject.SerialCommunicator.SerialWrapper;
+using MastersProject.Serial;
+using MastersProject.Serial.SerialWrapper;
 
 namespace MastersProject.App
 {

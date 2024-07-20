@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using MastersProject.App.MathEngine;
-using MastersProject.App.Models;
 
 namespace MastersProject.App.Infrastructure.Interfaces;
 

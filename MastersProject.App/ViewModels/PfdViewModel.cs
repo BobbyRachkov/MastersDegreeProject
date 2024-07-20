@@ -1,12 +1,8 @@
-﻿using MastersProject.App.Infrastructure;
-using MastersProject.App.Infrastructure.Interfaces;
-using MastersProject.App.Models;
-using MastersProject.SerialCommunicator;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Markup;
-using Point = MastersProject.App.MathEngine.Point;
+using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.Interfaces;
 
 namespace MastersProject.App.ViewModels
 {

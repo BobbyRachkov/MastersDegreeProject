@@ -1,9 +1,6 @@
-﻿using MastersProject.App.Infrastructure.Interfaces;
-using MastersProject.App.ViewModels;
+﻿using System.Windows;
+using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.WindowBases;
-using System;
-using System.Collections.Generic;
-using System.Windows;
 
 namespace MastersProject.App.Infrastructure.WindowFactories
 {

@@ -1,7 +1,7 @@
 ﻿using System.IO.Ports;
-using MastersProject.SerialCommunicator.SerialWrapper;
+using MastersProject.Serial.SerialWrapper;
 
-namespace MastersProject.SerialCommunicator
+namespace MastersProject.Serial
 {
     public class SerialPortCommunicator<TData> : ISerialCommunicator<TData>
     {

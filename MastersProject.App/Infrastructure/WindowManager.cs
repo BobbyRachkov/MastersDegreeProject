@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MastersProject.App.Infrastructure.WindowManager;
 using System.Windows;
-using MastersProject.App.Infrastructure.Interfaces;
 using Autofac;
+using MastersProject.App.Infrastructure.Interfaces;
 
 namespace MastersProject.App.Infrastructure
 {

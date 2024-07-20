@@ -1,4 +1,4 @@
-﻿namespace MastersProject.SerialCommunicator
+﻿namespace MastersProject.Serial
 {
     public interface IObjectTranslator<TData>
     {

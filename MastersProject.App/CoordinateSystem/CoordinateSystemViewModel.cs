@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Shapes;
+﻿using System.Collections.ObjectModel;
 using MastersProject.App.CoordinateSystem.Models;
-using MastersProject.App.Extensions;
 using MastersProject.App.Infrastructure;
-using Point = MastersProject.App.MathEngine.Point;
 
 namespace MastersProject.App.CoordinateSystem
 {

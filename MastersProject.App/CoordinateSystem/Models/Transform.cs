@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MastersProject.App.Infrastructure;
-
-namespace MastersProject.App.CoordinateSystem.Models
+﻿namespace MastersProject.App.CoordinateSystem.Models
 {
     internal class Transform
     {

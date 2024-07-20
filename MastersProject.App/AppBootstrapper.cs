@@ -1,15 +1,9 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using System.Windows;
+using Autofac;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.ViewModels;
-using MastersProject.App.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace MastersProject.App
 {

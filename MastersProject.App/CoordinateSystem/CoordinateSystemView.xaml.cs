@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
-using MastersProject.App.CoordinateSystem;
+﻿using System.Windows.Controls;
 
 namespace MastersProject.App.CoordinateSystem
 {

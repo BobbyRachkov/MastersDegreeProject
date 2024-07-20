@@ -4,7 +4,7 @@ using System.Windows.Threading;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
-using MastersProject.SerialCommunicator;
+using MastersProject.Serial;
 
 namespace MastersProject.App.Infrastructure
 {

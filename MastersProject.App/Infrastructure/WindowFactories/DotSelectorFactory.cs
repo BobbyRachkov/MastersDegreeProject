@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using MastersProject.App.Infrastructure.Interfaces;
+﻿using System.Windows;
 using MastersProject.App.WindowBases;
 
 namespace MastersProject.App.Infrastructure.WindowFactories

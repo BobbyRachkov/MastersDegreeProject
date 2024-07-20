@@ -1,22 +1,14 @@
-﻿using MastersProject.App.Infrastructure;
-using MastersProject.App.Models;
-using MastersProject.SerialCommunicator;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
-using MastersProject.App.MathEngine;
-using Point = MastersProject.App.MathEngine.Point;
 using MastersProject.App.CoordinateSystem;
 using MastersProject.App.CoordinateSystem.Models;
+using MastersProject.App.Infrastructure;
 using MastersProject.App.Infrastructure.Interfaces;
+using MastersProject.App.MathEngine;
+using MastersProject.App.Models;
 using MastersProject.App.UserControls;
+using MastersProject.Serial;
 
 namespace MastersProject.App.ViewModels
 {

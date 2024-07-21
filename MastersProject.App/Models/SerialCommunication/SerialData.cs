@@ -1,4 +1,4 @@
-﻿namespace MastersProject.App.Models
+﻿namespace MastersProject.App.Models.SerialCommunication
 {
     internal sealed class SerialData
     {

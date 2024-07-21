@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Infrastructure.WindowFactories;
+using MastersProject.App.Services.AttitudeProvider;
 
 namespace MastersProject.App.ViewModels
 {

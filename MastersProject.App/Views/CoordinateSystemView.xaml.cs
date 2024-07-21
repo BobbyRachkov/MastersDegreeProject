@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
+using MastersProject.App.ViewModels;
 
-namespace MastersProject.App.CoordinateSystem
+namespace MastersProject.App.Views
 {
     /// <summary>
     /// Interaction logic for CoordinateSystemView.xaml

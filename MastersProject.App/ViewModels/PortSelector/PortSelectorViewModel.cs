@@ -6,6 +6,7 @@ using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.Models;
+using MastersProject.App.Models.SerialCommunication;
 using MastersProject.Serial;
 
 namespace MastersProject.App.ViewModels.PortSelector;

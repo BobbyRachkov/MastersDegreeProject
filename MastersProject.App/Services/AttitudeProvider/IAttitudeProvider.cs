@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using MastersProject.App.MathEngine;
+using MastersProject.App.Services.MathEngine;
 
-namespace MastersProject.App.Infrastructure.Interfaces;
+namespace MastersProject.App.Services.AttitudeProvider;
 
 internal interface IAttitudeProvider
 {

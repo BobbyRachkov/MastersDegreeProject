@@ -1,4 +1,4 @@
-﻿namespace MastersProject.App.CoordinateSystem.Models
+﻿namespace MastersProject.App.Models.CoordinateSystem
 {
     internal class Transform
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using MastersProject.App.Infrastructure.Mvvm;
-using MastersProject.App.MathEngine;
+using MastersProject.App.Services.MathEngine;
 
 namespace MastersProject.App.Infrastructure;
 

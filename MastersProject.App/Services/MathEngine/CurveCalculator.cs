@@ -2,7 +2,7 @@
 using System.Linq;
 using MathNet.Numerics;
 
-namespace MastersProject.App.MathEngine
+namespace MastersProject.App.Services.MathEngine
 {
     public sealed class CurveCalculator : IApproximationEngine
     {

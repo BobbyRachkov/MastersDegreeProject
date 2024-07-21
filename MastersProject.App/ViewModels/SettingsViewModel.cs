@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
-using MastersProject.App.CoordinateSystem;
-using MastersProject.App.CoordinateSystem.Models;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
-using MastersProject.App.MathEngine;
 using MastersProject.App.Models;
-using MastersProject.App.UserControls;
+using MastersProject.App.Models.CoordinateSystem;
+using MastersProject.App.Models.SerialCommunication;
+using MastersProject.App.Services.AttitudeProvider;
+using MastersProject.App.Services.MathEngine;
 using MastersProject.Serial;
 
 namespace MastersProject.App.ViewModels

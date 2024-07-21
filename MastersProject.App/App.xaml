@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModels="clr-namespace:MastersProject.App.ViewModels"
              xmlns:views="clr-namespace:MastersProject.App.Views"
-             xmlns:coordinateSystem="clr-namespace:MastersProject.App.CoordinateSystem"
-             xmlns:userControls="clr-namespace:MastersProject.App.UserControls"
              xmlns:portSelector="clr-namespace:MastersProject.App.ViewModels.PortSelector"
              xmlns:converters="clr-namespace:MastersProject.App.Converters">
     <Application.Resources>
@@ -23,11 +21,11 @@
                     <DataTemplate DataType="{x:Type viewModels:DotSelectorViewModel}">
                         <views:DotSelectorView/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type coordinateSystem:CoordinateSystemViewModel}">
-                        <coordinateSystem:CoordinateSystemView/>
+                    <DataTemplate DataType="{x:Type viewModels:CoordinateSystemViewModel}">
+                        <views:CoordinateSystemView/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type userControls:MathSetupPaneViewModel}">
-                        <userControls:MathSetupPaneView/>
+                    <DataTemplate DataType="{x:Type viewModels:MathSetupPaneViewModel}">
+                        <views:MathSetupPaneView/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type portSelector:PortSelectorViewModel}">
                         <views:PortSelectorView/>

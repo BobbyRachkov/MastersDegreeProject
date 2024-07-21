@@ -5,6 +5,7 @@ using MastersProject.App.ViewModels.PortSelector;
 using MastersProject.App.ViewModels;
 using MastersProject.App.Infrastructure;
 using MastersProject.App.Models;
+using MastersProject.App.Models.SerialCommunication;
 using MastersProject.App.Translators;
 using MastersProject.Serial;
 using MastersProject.Serial.SerialWrapper;

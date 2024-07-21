@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using MastersProject.App.Infrastructure.Mvvm;
 
-namespace MastersProject.App.CoordinateSystem.Models
+namespace MastersProject.App.Models.CoordinateSystem
 {
     [DebuggerDisplay("X:{X} Y:{Y}")]
     internal class DrawablePoint : PropertyChangedBase

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using MastersProject.App.Extensions;
+using Microsoft.VisualBasic.CompilerServices;
 
-namespace MastersProject.App.MathEngine
+namespace MastersProject.App.Services.MathEngine
 {
     [DebuggerDisplay("{SlopeCoefficient} ; {OffsetConstant}")]
     internal sealed class LinearEquation : IEquation
@@ -37,6 +38,22 @@ namespace MastersProject.App.MathEngine
         public static bool operator !=(LinearEquation lhs, LinearEquation rhs)
         {
             return !(lhs == rhs);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not LinearEquation equation)
+            {
+                return false;
+            }
+
+            return ReferenceEquals(this, obj)
+                   || this == equation;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)(SlopeCoefficient + OffsetConstant * 10000000);
         }
     }
 }

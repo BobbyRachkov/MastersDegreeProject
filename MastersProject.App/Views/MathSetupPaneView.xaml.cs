@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace MastersProject.App.UserControls
+namespace MastersProject.App.Views
 {
     /// <summary>
     /// Interaction logic for MathSetupPaneView.xaml

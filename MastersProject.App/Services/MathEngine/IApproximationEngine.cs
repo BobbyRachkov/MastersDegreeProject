@@ -1,4 +1,4 @@
-﻿namespace MastersProject.App.MathEngine
+﻿namespace MastersProject.App.Services.MathEngine
 {
     internal interface IApproximationEngine
     {

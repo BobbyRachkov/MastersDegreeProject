@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using MastersProject.App.CoordinateSystem.Models;
 using MastersProject.App.Infrastructure.Mvvm;
+using MastersProject.App.Models.CoordinateSystem;
 
-namespace MastersProject.App.CoordinateSystem
+namespace MastersProject.App.ViewModels
 {
     internal class CoordinateSystemViewModel : PropertyChangedBase
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using MastersProject.App.Infrastructure.Mvvm;
 
-namespace MastersProject.App.CoordinateSystem.Models;
+namespace MastersProject.App.Models.CoordinateSystem;
 
 internal class DrawableLine : PropertyChangedBase
 {

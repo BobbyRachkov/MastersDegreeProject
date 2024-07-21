@@ -1,4 +1,5 @@
 ﻿using MastersProject.App.Models;
+using MastersProject.App.Models.SerialCommunication;
 using MastersProject.Serial;
 
 namespace MastersProject.App.Translators

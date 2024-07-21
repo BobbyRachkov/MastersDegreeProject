@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Threading;
-using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
-using MastersProject.App.MathEngine;
-using MastersProject.App.Models;
+using MastersProject.App.Models.SerialCommunication;
+using MastersProject.App.Services.MathEngine;
 using MastersProject.Serial;
 
-namespace MastersProject.App.Infrastructure
+namespace MastersProject.App.Services.AttitudeProvider
 {
     internal sealed class AttitudeProvider : ViewModelBase, IAttitudeProvider, IDisposable
     {

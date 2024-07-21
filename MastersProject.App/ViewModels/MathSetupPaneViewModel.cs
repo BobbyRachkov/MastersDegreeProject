@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Media;
-using MastersProject.App.CoordinateSystem;
-using MastersProject.App.CoordinateSystem.Models;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Infrastructure.WindowFactories;
-using MastersProject.App.MathEngine;
-using MastersProject.App.ViewModels;
+using MastersProject.App.Models.CoordinateSystem;
+using MastersProject.App.Services.MathEngine;
 
-namespace MastersProject.App.UserControls;
+namespace MastersProject.App.ViewModels;
 
 internal class MathSetupPaneViewModel : PropertyChangedBase
 {

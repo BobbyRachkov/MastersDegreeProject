@@ -16,22 +16,25 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
     private readonly SettingsViewModel _settingsViewModel;
     private readonly IApproximationEngine _approximationEngine;
     private readonly IWindowManager _windowManager;
+    private readonly Func<IEquation> _currentEquationSource;
     private IEquation _equation;
     private readonly Action<IEquation> _applyEquationCallback;
-    private IEquation _previousEquation;
+    private IEquation? _previousEquation;
     private double _attitudeValue;
 
     public MathSetupPaneViewModel(
         SettingsViewModel settingsViewModel,
         IApproximationEngine approximationEngine,
         IWindowManager windowManager,
+        Func<IEquation> currentEquationSource,
         Action<IEquation> applyEquationCallback)
     {
         _settingsViewModel = settingsViewModel;
         _approximationEngine = approximationEngine;
         _applyEquationCallback = applyEquationCallback;
         _windowManager = windowManager;
-        _equation = new LinearEquation(0, 0);
+        _currentEquationSource = currentEquationSource;
+        _equation = ActiveEquation;
 
         Graph = new(1023, 180);
         var selectorLine = new DrawableLine(
@@ -48,11 +51,11 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
             CalculateTrendLine,
             () => Graph.Points.Count > 1 && Graph.Lines.Count == 1);
         PickDotCommand = new(PickDot);
-        UseEquationCommand = new(UseEquation);
-        RevertEquationCommand = new(RevertEquation);
+        UseEquationCommand = new(UseEquation, () => Equation != ActiveEquation);
+        RevertEquationCommand = new(RevertEquation, () => _previousEquation is not null);
     }
 
-    public string Title { get; init; }
+    public string? Title { get; init; }
 
     public double AttitudeValue
     {
@@ -73,6 +76,15 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
         set
         {
             _equation = value;
+            NotifyPropertyChanged();
+        }
+    }
+    public IEquation ActiveEquation
+    {
+        get => _currentEquationSource();
+        set
+        {
+            _applyEquationCallback(value);
             NotifyPropertyChanged();
         }
     }
@@ -139,12 +151,18 @@ internal class MathSetupPaneViewModel : PropertyChangedBase
 
     private void UseEquation()
     {
-        _applyEquationCallback(Equation);
-        _previousEquation = Equation;
+        _previousEquation = ActiveEquation;
+        ActiveEquation = Equation;
     }
 
     private void RevertEquation()
     {
-        _applyEquationCallback(_previousEquation);
+        if (_previousEquation is null)
+        {
+            return;
+        }
+        var previousEquation = _previousEquation;
+        Equation = previousEquation;
+        UseEquation();
     }
 }

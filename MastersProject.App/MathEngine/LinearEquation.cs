@@ -1,7 +1,10 @@
-﻿using MastersProject.App.Extensions;
+﻿using System;
+using System.Diagnostics;
+using MastersProject.App.Extensions;
 
 namespace MastersProject.App.MathEngine
 {
+    [DebuggerDisplay("{SlopeCoefficient} ; {OffsetConstant}")]
     internal sealed class LinearEquation : IEquation
     {
         public double SlopeCoefficient { get; }
@@ -23,6 +26,17 @@ namespace MastersProject.App.MathEngine
         {
             SlopeCoefficient.AssertNotZero(nameof(SlopeCoefficient));
             return (targetYPoint - OffsetConstant) / SlopeCoefficient;
+        }
+
+        public static bool operator ==(LinearEquation lhs, LinearEquation rhs)
+        {
+            return Math.Abs(lhs.SlopeCoefficient - rhs.SlopeCoefficient) < 0.0000001
+                && Math.Abs(lhs.OffsetConstant - rhs.OffsetConstant) < 0.0000001;
+        }
+
+        public static bool operator !=(LinearEquation lhs, LinearEquation rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }

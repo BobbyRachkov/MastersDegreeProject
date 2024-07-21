@@ -65,7 +65,7 @@ internal class PortViewModel : ViewModelBase
 
         await Task.Delay(TimeSpan.FromMilliseconds(500));
 
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
 
 
         var checkTask = Task.Run(

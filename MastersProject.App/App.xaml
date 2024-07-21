@@ -5,10 +5,14 @@
              xmlns:views="clr-namespace:MastersProject.App.Views"
              xmlns:coordinateSystem="clr-namespace:MastersProject.App.CoordinateSystem"
              xmlns:userControls="clr-namespace:MastersProject.App.UserControls"
-             xmlns:portSelector="clr-namespace:MastersProject.App.ViewModels.PortSelector">
+             xmlns:portSelector="clr-namespace:MastersProject.App.ViewModels.PortSelector"
+             xmlns:converters="clr-namespace:MastersProject.App.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                 <ResourceDictionary>
                     <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
                         <views:SettingsView/>
@@ -28,6 +32,91 @@
                     <DataTemplate DataType="{x:Type portSelector:PortSelectorViewModel}">
                         <views:PortSelectorView/>
                     </DataTemplate>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="#f4ac71"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type CheckBox}" x:Key="SwitchCheckBoxStyle">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type CheckBox}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0"
+                              Width="40"
+                              Height="18">
+                                            <!--Hitbox-->
+                                            <Rectangle Fill="Transparent" />
+
+                                            <!--Toggle-Switch Outline-->
+                                            <Border CornerRadius="10" 
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
+                                    x:Name="ToggleBorder">
+                                                <!--Dot in Toggle-Switch-->
+                                                <Ellipse Fill="Black" 
+                                         Height="10" 
+                                         Width="10" 
+                                         HorizontalAlignment="Left"
+                                         Margin="4,0"
+                                         VerticalAlignment="Center"
+                                         x:Name="ToggleEllipse"/>
+                                            </Border>
+                                        </Grid>
+                                        <ContentPresenter Grid.Column="1"
+                                          Margin="4,0,0,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"/>
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <!--Change colors and move dot to the right-->
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="ToggleEllipse"
+                                    Property="HorizontalAlignment"
+                                    Value="Right" />
+                                            <Setter TargetName="ToggleBorder"
+                                    Property="BorderBrush"
+                                    Value="#5B72C2" />
+                                            <Setter TargetName="ToggleBorder"
+                                    Property="Background"
+                                    Value="#5B72C2" />
+                                            <Setter TargetName="ToggleEllipse"
+                                    Property="Fill"
+                                    Value="White" />
+
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter TargetName="ToggleBorder"
+                                    Property="BorderThickness"
+                                    Value="1.5" />
+                                            <Setter TargetName="ToggleBorder"
+                                    Property="BorderBrush"
+                                    Value="Black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                    <converters:BooleanToVisibilityConverter FalseValue="Collapsed" x:Key="BooleanToVisibilityCollapsedConverter"/>
+                    <converters:BooleanToVisibilityConverter Invert="True" x:Key="InvertedBooleanToVisibilityConverter"/>
+                    <converters:BooleanToVisibilityConverter Invert="True" FalseValue="Collapsed" x:Key="InvertedBooleanToVisibilityCollapsedConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

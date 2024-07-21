@@ -18,7 +18,7 @@ namespace MastersProject.App
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterWindowFactories();
+            builder.RegisterWindowManager();
 
             builder.RegisterSerialCommunicator();
 

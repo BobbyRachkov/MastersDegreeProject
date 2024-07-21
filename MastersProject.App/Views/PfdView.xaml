@@ -7,7 +7,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:PfdViewModel}"
              d:DesignHeight="768" d:DesignWidth="768">
-    <Grid>
+    <Grid
+        ClipToBounds="True"
+        Width="{Binding ActualWidth,ElementName=Pfd }"
+        Height="{Binding ActualHeight,ElementName=Pfd }">
         <StackPanel
             Panel.ZIndex="200"
             Margin="5"
@@ -66,7 +69,6 @@
 
             </Button>
         </StackPanel>
-
         <StackPanel
             Panel.ZIndex="200">
             <StackPanel Orientation="Vertical">
@@ -94,7 +96,9 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
+
         <Image
+            x:Name="Pfd"
             Panel.ZIndex="10"
             Stretch="None"
             VerticalAlignment="Center"
@@ -104,7 +108,7 @@
         </Image>
         <Grid
             Height="1093"
-            ClipToBounds="False"
+            ClipToBounds="True"
             Panel.ZIndex="5"
             Margin="0 25 105 0"
             VerticalAlignment="Center"
@@ -116,7 +120,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Image
-                ClipToBounds="False"
+                ClipToBounds="True"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Stretch="None"

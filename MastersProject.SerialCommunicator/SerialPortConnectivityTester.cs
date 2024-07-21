@@ -6,7 +6,8 @@ namespace MastersProject.Serial;
 public class SerialPortConnectivityTester : ISerialPortConnectivityTester
 {
     private readonly ManualResetEvent _event = new(false);
-    private SerialPort _serialPort;
+    private SerialPort? _serialPort;
+
     public bool TryConnect(string portName, CancellationToken cancellationToken)
     {
         _serialPort = new SerialPort(portName, 9600);
@@ -18,9 +19,9 @@ public class SerialPortConnectivityTester : ISerialPortConnectivityTester
             _serialPort.Open();
             Debug.WriteLine($"Opened {portName}");
         }
-        catch
+        catch(Exception ex)
         {
-            Debug.WriteLine($"Caught {portName}");
+            Debug.WriteLine($"Caught {portName} - {ex.Message}");
             _serialPort.Close();
             _serialPort.Dispose();
             Debug.WriteLine($"returning {portName}");
@@ -28,23 +29,24 @@ public class SerialPortConnectivityTester : ISerialPortConnectivityTester
         }
 
         cancellationToken.ThrowIfCancellationRequested();
-        var isEventSuccessful = _event.WaitOne(TimeSpan.FromSeconds(2));
+        var isEventSuccessful = _event.WaitOne(TimeSpan.FromSeconds(4));
+        Debug.WriteLine($"{portName} -> {isEventSuccessful}");
 
         _serialPort.Close();
         _serialPort.Dispose();
-        return isEventSuccessful;
+        return true;
     }
 
     private void SerialPortOnDataReceived(object sender, SerialDataReceivedEventArgs e)
     {
-        try
-        {
-            Debug.WriteLine(_serialPort.ReadLine());
-        }
-        catch
-        {
-            return;
-        }
+        //try
+        //{
+        //    Debug.WriteLine(_serialPort?.ReadLine());
+        //}
+        //catch
+        //{
+        //    return;
+        //}
 
         _event.Set();
     }

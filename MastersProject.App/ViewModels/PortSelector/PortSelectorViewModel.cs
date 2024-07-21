@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MastersProject.App.Extensions;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
+using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.Models;
 using MastersProject.Serial;
 
@@ -55,9 +56,9 @@ internal class PortSelectorViewModel : ViewModelBase, IDisposable
     {
         _serial.TrySetup("COM7", 9600);
         _serial.StartAsync();
-        _windowManager.ResetDefaultWindowFactory();
+        _windowManager.SetActiveFactory<PfdWindowFactory>();
         _windowManager.ShowWindow<PfdViewModel>();
-        //_windowManager.CloseWindow(this);
+        _windowManager.CloseWindow(this);
     }
 
     public void Dispose()

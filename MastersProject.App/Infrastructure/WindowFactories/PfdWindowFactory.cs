@@ -1,18 +1,17 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 
 namespace MastersProject.App.Infrastructure.WindowFactories
 {
-    internal class PfdWindowFactory : DefaultWindowFactory
+    internal class PfdWindowFactory : DynamicWindowFactory
     {
         public override Window Create()
         {
             var window = base.Create();
             window.Title = "PFD";
-            window.Height = 768;
-            window.Width = 768;
             window.Background = Brushes.Black;
-            window.WindowStyle = WindowStyle.SingleBorderWindow;
+            window.WindowStyle = WindowStyle.None;
             window.ResizeMode = ResizeMode.NoResize;
             return window;
         }

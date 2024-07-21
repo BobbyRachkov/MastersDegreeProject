@@ -26,7 +26,7 @@ public static class ContainerBuilderExtensions
             .SingleInstance();
     }
 
-    public static void RegisterWindowFactories(this ContainerBuilder builder)
+    public static void RegisterWindowManager(this ContainerBuilder builder)
     {
         builder.RegisterType<DefaultWindowFactory>()
             .AsImplementedInterfaces();
@@ -35,6 +35,8 @@ public static class ContainerBuilderExtensions
         builder.RegisterType<PfdWindowFactory>()
             .AsImplementedInterfaces();
         builder.RegisterType<DotSelectorFactory>()
+            .AsImplementedInterfaces();
+        builder.RegisterType<SettingsWindowFactory>()
             .AsImplementedInterfaces();
 
         builder.RegisterType<WindowManager>()

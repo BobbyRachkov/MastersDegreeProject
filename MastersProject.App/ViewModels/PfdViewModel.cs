@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.Infrastructure.Mvvm;
+using MastersProject.App.Infrastructure.WindowFactories;
 
 namespace MastersProject.App.ViewModels
 {
@@ -23,7 +24,7 @@ namespace MastersProject.App.ViewModels
 
             OpenSettingsCommand = new RelayCommand((_) =>
             {
-                _windowManager.ResetDefaultWindowFactory();
+                _windowManager.SetActiveFactory<SettingsWindowFactory>();
                 _windowManager.ShowWindow(_settingsViewModel);
             });
             RestartCommand = new RelayCommand((_) =>

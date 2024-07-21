@@ -4,25 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:userControls="clr-namespace:MastersProject.App.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=userControls:MathSetupPaneViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <GroupBox
+        mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+        mah:HeaderedControlHelper.HeaderBackground="White"
+        BorderBrush="Black"
+        Margin="4 4 0 4"
+        Header="{Binding Title}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock
-            FontSize="20"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Text="{Binding Title}"
-            Grid.Row="0"/>
-        <Grid
-            Grid.Row="1">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style x:Key="TextBlockLegend" TargetType="TextBlock">
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Margin" Value="10 0 0 -3"/>
+                </Style>
+                <Style x:Key="GraphButtons" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Height" Value="27"/>
+                    <Setter Property="Margin" Value="10 2"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid
+            MinWidth="450"
+            Height="260"
+            Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <ContentControl
                 Margin="5"
@@ -35,26 +49,22 @@
                 Grid.Column="1">
                 <Button
                     Command="{Binding ClearLinesCommand}"
-                    Height="30"
-                    Margin="10,2">
+                    Style="{StaticResource GraphButtons}">
                     Clear lines
                 </Button>
                 <Button
                     Command="{Binding ClearDotsCommand}"
-                    Height="30"
-                    Margin="10,2">
+                    Style="{StaticResource GraphButtons}">
                     Clear dots
                 </Button>
                 <Button
                     Command="{Binding CalculateTrendLineCommand}"
-                    Height="30"
-                    Margin="10,2">
+                    Style="{StaticResource GraphButtons}">
                     Calculate trend line
                 </Button>
                 <Button
                     Command="{Binding PickDotCommand}"
-                    Height="30"
-                    Margin="10,2">
+                    Style="{StaticResource GraphButtons}">
                     Pick a dot
                 </Button>
                 <Grid>
@@ -78,16 +88,29 @@
                     </Button>
                 </Grid>
                 <TextBlock
-                    Margin="10,2">
+                    Margin="10,10,10,5">
                     y = k.x + c
                 </TextBlock>
-
                 <TextBlock
-                    Margin="10,2">
-                    y = <TextBlock Text="{Binding Equation.SlopeCoefficient, StringFormat=0.000000000}"/>*x + 
-                    <TextBlock Text="{Binding Equation.OffsetConstant, StringFormat=0.000000000}"/>
+                    Style="{StaticResource TextBlockLegend}">
+                    Current:
+                </TextBlock>
+                <TextBlock
+                    Margin="15,2,10,2">
+                    y = <TextBlock Text="{Binding Equation.SlopeCoefficient, StringFormat=0.0000000}"/>*x + 
+                    <TextBlock Text="{Binding Equation.OffsetConstant, StringFormat=0.0000000}"/>
+                </TextBlock>
+                <TextBlock
+                    Style="{StaticResource TextBlockLegend}">
+                    Active:
+                </TextBlock>
+                <TextBlock
+                    Margin="15,2,10,2">
+                    y = <TextBlock Text="{Binding ActiveEquation.SlopeCoefficient, StringFormat=0.0000000}"/>*x + 
+                    <TextBlock Text="{Binding ActiveEquation.OffsetConstant, StringFormat=0.0000000}"/>
                 </TextBlock>
             </StackPanel>
         </Grid>
     </Grid>
+    </GroupBox>
 </UserControl>

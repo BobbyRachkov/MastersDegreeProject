@@ -16,7 +16,6 @@ namespace MastersProject.App.ViewModels
     {
         private readonly ISerialCommunicator<SerialData> _serialCommunicator;
         private readonly ICollection<string> _serialPortNames;
-        private string? _selectedSerialPort;
         private DrawablePoint _currentPoint;
 
         public SettingsViewModel(
@@ -27,7 +26,6 @@ namespace MastersProject.App.ViewModels
         {
             _serialPortNames = serialCommunicator.GetPortNames();
             _serialCommunicator = serialCommunicator;
-            _selectedSerialPort = _serialPortNames.LastOrDefault();
             serialCommunicator.DataReceived += SerialCommunicator_DataReceived;
 
             DemoGraph = new CoordinateSystemViewModel(1023, 1023);
@@ -35,6 +33,7 @@ namespace MastersProject.App.ViewModels
                 this,
                 approximationEngine,
                 windowManager,
+                () => attitudeProvider.PitchEquation,
                 e => attitudeProvider.PitchEquation = e)
             {
                 Title = "Pitch"
@@ -43,7 +42,8 @@ namespace MastersProject.App.ViewModels
                 this,
                 approximationEngine,
                 windowManager,
-            e => attitudeProvider.RollEquation = e)
+                () => attitudeProvider.RollEquation,
+                e => attitudeProvider.RollEquation = e)
             {
                 Title = "Roll"
             };

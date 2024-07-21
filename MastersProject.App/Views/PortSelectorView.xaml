@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MastersProject.App.Views"
-             xmlns:converters="clr-namespace:MastersProject.App.Converters"
              xmlns:portSelector="clr-namespace:MastersProject.App.ViewModels.PortSelector"
-             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=portSelector:PortSelectorViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -34,34 +33,38 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock 
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
                             Margin="10"
+                            FontSize="15"
+                            FontWeight="Medium"
+                            FontFamily="Verdana"
                             Grid.Column="0"
                             Text="{Binding Name}"/>
                         <Grid
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Grid.Column="1">
-                            <fa:FontAwesome
+                            <iconPacks:PackIconRadixIcons 
+                                Kind="Cross2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="17"
                                 Foreground="Red"
-                                Visibility="{Binding IsCheckSuccessful,Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                                Icon="Close"/>
-                            <fa:FontAwesome
+                                Visibility="{Binding IsCheckSuccessful,Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
+                            <iconPacks:PackIconFontAwesome 
+                                Kind="CheckSolid"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="17"
                                 Foreground="Green"
-                                Visibility="{Binding IsCheckSuccessful,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Icon="Check"/>
-                            <fa:FontAwesome
+                                Visibility="{Binding IsCheckSuccessful,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <mah:ProgressRing
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontSize="17"
-                                Visibility="{Binding IsCheckInProgress,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Icon="Spinner"/>
+                                Width="20"
+                                Visibility="{Binding IsCheckInProgress,Converter={StaticResource BooleanToVisibilityConverter}}"/>
                         </Grid>
                         <Button 
                             Visibility="{Binding IsCheckSuccessful,Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -69,8 +72,7 @@
                             Width="30"
                             Grid.Column="2"
                             Command="{Binding UsePortCommand}">
-                            <fa:FontAwesome
-                                Icon="ChevronRight"/>
+                            <iconPacks:PackIconFontAwesome Kind="PlaySolid" />
                         </Button>
                     </Grid>
                 </ItemContainerTemplate>

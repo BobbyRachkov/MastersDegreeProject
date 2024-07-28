@@ -55,7 +55,7 @@ internal class PortSelectorViewModel : ViewModelBase, IDisposable
 
     private void LaunchOnPort(string portName)
     {
-        _serial.TrySetup("COM7", 9600);
+        _serial.TrySetup(portName, 9600);
         _serial.StartAsync();
         _windowManager.SetActiveFactory<PfdWindowFactory>();
         _windowManager.ShowWindow<PfdViewModel>();

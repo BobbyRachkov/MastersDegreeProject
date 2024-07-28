@@ -71,11 +71,10 @@ internal class PortViewModel : ViewModelBase
         var checkTask = Task.Run(
             () => checker.TryConnect(Name, cts.Token),
             cts.Token);
-        Debug.WriteLine($"Ran {Name}; awaiting");
+
         await checkTask;
         OnUiThread(() => IsCheckInProgress = false);
-
-        Debug.WriteLine($"Awaited {Name}");
+        
         if (checkTask is { IsCompletedSuccessfully: true, Result: true })
         {
             OnUiThread(() => IsCheckSuccessful = true);
@@ -83,6 +82,5 @@ internal class PortViewModel : ViewModelBase
         }
 
         OnUiThread(() => IsCheckSuccessful = false);
-        Debug.WriteLine($"Finished {Name}");
     }
 }

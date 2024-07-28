@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+        Icon="D:\Programming\MastersProject\MastersProject.App\Images\icon.png"
+        IconScalingMode="ScaleDownLargerFrame"
         Title="DefaultWindow" Height="450" Width="800">
     <Grid>
         

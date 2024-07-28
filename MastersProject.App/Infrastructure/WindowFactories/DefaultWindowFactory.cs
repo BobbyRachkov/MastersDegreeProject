@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media.Imaging;
 using MastersProject.App.Infrastructure.Interfaces;
 using MastersProject.App.WindowBases;
 
@@ -11,7 +12,7 @@ namespace MastersProject.App.Infrastructure.WindowFactories
             var window = new DefaultWindow
             {
                 Height = 600,
-                Width = 900
+                Width = 900,
             };
             return window;
         }

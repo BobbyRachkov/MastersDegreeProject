@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <DefaultNamespace>MastersProject.App</DefaultNamespace>
     <RootNamespace>MastersProject.App</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
-    <Folder Include="Images\" />
   </ItemGroup>
 
   <ItemGroup>

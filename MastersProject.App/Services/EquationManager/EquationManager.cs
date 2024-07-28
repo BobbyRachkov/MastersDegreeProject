@@ -1,19 +1,19 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Services.MathEngine;
 
-namespace MastersProject.App.Infrastructure;
+namespace MastersProject.App.Services.EquationManager;
 
-internal class EquationManager : ViewModelBase
+internal class EquationManager : IEquationManager
 {
     private IEquation _rollEquation = null!;
     private IEquation _pitchEquation = null!;
 
+    public event EventHandler? EquationUpdated;
 
-    public EquationManager(IEquation rollEquation, IEquation pitchEquation)
+    public EquationManager()
     {
-        SetNewPitchEquation(pitchEquation);
-        SetNewRollEquation(rollEquation);
         PitchEquationsHistory = new();
         RollEquationsHistory = new();
     }
@@ -25,7 +25,7 @@ internal class EquationManager : ViewModelBase
         private set
         {
             _pitchEquation = value;
-            NotifyPropertyChanged();
+            EquationUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -35,7 +35,7 @@ internal class EquationManager : ViewModelBase
         private set
         {
             _rollEquation = value;
-            NotifyPropertyChanged();
+            EquationUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -47,15 +47,18 @@ internal class EquationManager : ViewModelBase
         PitchEquationsHistory.Insert(0, equation);
         PitchEquation = equation;
     }
+
     public void SetOldPitchEquation(int index)
     {
         PitchEquation = PitchEquationsHistory[index];
     }
+
     public void SetNewRollEquation(IEquation equation)
     {
         RollEquationsHistory.Insert(0, equation);
         RollEquation = equation;
     }
+
     public void SetOldRollEquation(int index)
     {
         RollEquation = RollEquationsHistory[index];

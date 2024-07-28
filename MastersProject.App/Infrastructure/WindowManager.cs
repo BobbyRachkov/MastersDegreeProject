@@ -32,7 +32,7 @@ namespace MastersProject.App.Infrastructure
             var window = ActiveWindowFactory.Create(viewModel);
             BindClosable(window, viewModel);
             _windows.Add(window);
-            window.Show();
+            window.Show(); 
             return window;
         }
         public bool? ShowDialog<TViewModel, TViewModelOwner>(TViewModelOwner owner)

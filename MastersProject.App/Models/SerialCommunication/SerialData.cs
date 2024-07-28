@@ -1,6 +1,6 @@
 ﻿namespace MastersProject.App.Models.SerialCommunication
 {
-    internal sealed class SerialData
+    public sealed class SerialData
     {
         public int Pitch { get; set; }
         public int Roll { get; set; }

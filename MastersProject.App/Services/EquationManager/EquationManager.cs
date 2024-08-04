@@ -1,66 +1,110 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Services.MathEngine;
 
 namespace MastersProject.App.Services.EquationManager;
 
 internal class EquationManager : IEquationManager
 {
-    private IEquation _rollEquation = null!;
-    private IEquation _pitchEquation = null!;
+    private IEquation _pitchAttitudeEquation = null!;
+    private IEquation _rollAttitudeEquation = null!;
 
-    public event EventHandler? EquationUpdated;
+    private IEquation _pitchDisplayEquation = null!;
+    private IEquation _rollDisplayEquation = null!;
+
+    public event EventHandler? AttitudeEquationUpdated;
+    public event EventHandler? DisplayEquationUpdated;
 
     public EquationManager()
     {
-        PitchEquationsHistory = new();
-        RollEquationsHistory = new();
+        _pitchAttitudeEquation = new LinearEquation(1, 0);
+
+        PitchAttitudeEquationsHistory = new();
+        RollAttitudeEquationsHistory = new();
     }
 
+    #region Attitude Equations
 
-    public IEquation PitchEquation
+    public IEquation PitchAttitudeEquation
     {
-        get => _pitchEquation;
+        get => _pitchAttitudeEquation;
         private set
         {
-            _pitchEquation = value;
-            EquationUpdated?.Invoke(this, EventArgs.Empty);
+            _pitchAttitudeEquation = value;
+            AttitudeEquationUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    public IEquation RollEquation
+    public IEquation RollAttitudeEquation
     {
-        get => _rollEquation;
+        get => _rollAttitudeEquation;
         private set
         {
-            _rollEquation = value;
-            EquationUpdated?.Invoke(this, EventArgs.Empty);
+            _rollAttitudeEquation = value;
+            AttitudeEquationUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    public ObservableCollection<IEquation> PitchEquationsHistory { get; }
-    public ObservableCollection<IEquation> RollEquationsHistory { get; }
+    public ObservableCollection<IEquation> PitchAttitudeEquationsHistory { get; }
+    public ObservableCollection<IEquation> RollAttitudeEquationsHistory { get; }
 
-    public void SetNewPitchEquation(IEquation equation)
+    public void SetNewPitchAttitudeEquation(IEquation equation)
     {
-        PitchEquationsHistory.Insert(0, equation);
-        PitchEquation = equation;
+        PitchAttitudeEquationsHistory.Insert(0, equation);
+        PitchAttitudeEquation = equation;
     }
 
-    public void SetOldPitchEquation(int index)
+    public void SetOldPitchAttitudeEquation(int index)
     {
-        PitchEquation = PitchEquationsHistory[index];
+        PitchAttitudeEquation = PitchAttitudeEquationsHistory[index];
     }
 
-    public void SetNewRollEquation(IEquation equation)
+    public void SetNewRollAttitudeEquation(IEquation equation)
     {
-        RollEquationsHistory.Insert(0, equation);
-        RollEquation = equation;
+        RollAttitudeEquationsHistory.Insert(0, equation);
+        RollAttitudeEquation = equation;
     }
 
-    public void SetOldRollEquation(int index)
+    public void SetOldRollAttitudeEquation(int index)
     {
-        RollEquation = RollEquationsHistory[index];
+        RollAttitudeEquation = RollAttitudeEquationsHistory[index];
     }
+
+    #endregion
+
+    #region Display Equations
+
+    public IEquation PitchDisplayEquation
+    {
+        get => _pitchDisplayEquation;
+        private set
+        {
+            _pitchDisplayEquation = value;
+            DisplayEquationUpdated?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public IEquation RollDisplayEquation
+    {
+        get => _rollDisplayEquation;
+        private set
+        {
+            _rollDisplayEquation = value;
+            DisplayEquationUpdated?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public void SetNewPitchDisplayEquation(IEquation equation)
+    {
+        PitchAttitudeEquationsHistory.Insert(0, equation);
+        PitchAttitudeEquation = equation;
+    }
+
+    public void SetNewRollDisplayEquation(IEquation equation)
+    {
+        RollAttitudeEquationsHistory.Insert(0, equation);
+        RollAttitudeEquation = equation;
+    }
+
+    #endregion
 }

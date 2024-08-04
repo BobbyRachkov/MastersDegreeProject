@@ -7,6 +7,8 @@ using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.Models;
 using MastersProject.App.Models.SerialCommunication;
+using MastersProject.App.Services.InputStream;
+using MastersProject.App.Services.InputStream.Models;
 using MastersProject.Serial;
 
 namespace MastersProject.App.ViewModels.PortSelector;
@@ -15,14 +17,17 @@ internal class PortSelectorViewModel : ViewModelBase, IDisposable
 {
     private readonly ISerialCommunicator<SerialData> _serial;
     private readonly IWindowManager _windowManager;
+    private readonly IInputStreamManager _inputStreamManager;
     private Task[] _checks = Array.Empty<Task>();
 
     public PortSelectorViewModel(
         ISerialCommunicator<SerialData> serial,
-        IWindowManager windowManager)
+        IWindowManager windowManager,
+        IInputStreamManager inputStreamManager)
     {
         _serial = serial;
         _windowManager = windowManager;
+        _inputStreamManager = inputStreamManager;
         Ports = new();
         RefreshPortsCommand = new(RefreshPorts);
         RerunChecksCommand = new(RunChecks);
@@ -55,11 +60,23 @@ internal class PortSelectorViewModel : ViewModelBase, IDisposable
 
     private void LaunchOnPort(string portName)
     {
-        _serial.TrySetup(portName, 9600);
-        _serial.StartAsync();
+        //_serial.TrySetup(portName, 9600);
+        //_serial.StartAsync();
         _windowManager.SetActiveFactory<PfdWindowFactory>();
         _windowManager.ShowWindow<PfdViewModel>();
         _windowManager.CloseWindow(this);
+
+        _inputStreamManager.TryConfigure(InputStreamType.Serial,
+            new InputStreamConfig
+            {
+                Serial = new SerialConfig
+                {
+                    BaudRate = 9600,
+                    PortName = portName
+                }
+            });
+        _inputStreamManager.Start();
+
     }
 
     public void Dispose()

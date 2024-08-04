@@ -76,23 +76,23 @@
                     <TextBlock
                         Foreground="White"
                         FontSize="50"
-                        Text="{Binding AttitudeIndicator.RawPitch}"/>
+                        Text="{Binding RawPitch}"/>
                     <TextBlock
                         Margin="20,0"
                         Foreground="White"
                         FontSize="50"
-                        Text="{Binding AttitudeIndicator.Pitch,StringFormat=00.0°}"/>
+                        Text="{Binding Pitch,StringFormat=00.0°}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="50"
                         Foreground="White"
-                        Text="{Binding AttitudeIndicator.RawRoll}"/>
+                        Text="{Binding RawRoll}"/>
                     <TextBlock
                         Margin="20,0"
                         FontSize="50"
                         Foreground="White"
-                        Text="{Binding AttitudeIndicator.Roll,StringFormat=00.0°}"/>
+                        Text="{Binding Roll,StringFormat=00.0°}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
@@ -116,7 +116,7 @@
             RenderTransformOrigin="0.5 0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
-                    <RotateTransform Angle="{Binding AttitudeIndicator.Roll}"/>
+                    <RotateTransform Angle="{Binding Roll}"/>
                 </TransformGroup>
             </Grid.RenderTransform>
             <Image
@@ -128,7 +128,7 @@
                 RenderTransformOrigin="0.5 0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
-                        <TranslateTransform Y="{Binding AttitudeIndicator.Pitch}"/>
+                        <TranslateTransform Y="{Binding Pitch}"/>
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MastersProject.App.Infrastructure.Mvvm;
 using MastersProject.Serial;
 
@@ -39,6 +40,7 @@ internal class PortViewModel : ViewModelBase
         {
             _isCheckSuccessful = value;
             NotifyPropertyChanged();
+            CommandManager.InvalidateRequerySuggested();
         }
     }
     public bool IsCheckInProgress
@@ -48,6 +50,7 @@ internal class PortViewModel : ViewModelBase
         {
             _isCheckInProgress = value;
             NotifyPropertyChanged();
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 

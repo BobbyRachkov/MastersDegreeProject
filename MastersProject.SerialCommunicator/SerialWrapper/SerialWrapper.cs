@@ -1,4 +1,5 @@
-﻿using System.IO.Ports;
+﻿using System.Diagnostics;
+using System.IO.Ports;
 
 namespace MastersProject.Serial.SerialWrapper
 {
@@ -14,7 +15,9 @@ namespace MastersProject.Serial.SerialWrapper
 
         private void SerialPortOnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            DataReceived?.Invoke(this, new DataReceivedEventArgs(_serialPort.ReadLine()));
+            var data = _serialPort.ReadLine();
+            Debug.WriteLine(data);
+            DataReceived?.Invoke(this, new DataReceivedEventArgs(data));
         }
 
         public bool IsOpen => _serialPort.IsOpen;

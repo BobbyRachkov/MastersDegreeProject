@@ -3,8 +3,9 @@ using MastersProject.App.Infrastructure.WindowFactories;
 using MastersProject.App.ViewModels.PortSelector;
 using MastersProject.App.ViewModels;
 using MastersProject.App.Infrastructure;
+using MastersProject.App.Infrastructure.DataStreaming;
+using MastersProject.App.Models.DataStreaming;
 using MastersProject.App.Models.SerialCommunication;
-using MastersProject.App.Services.AttitudeDataStream;
 using MastersProject.App.Services.EquationManager;
 using MastersProject.App.Services.InputStream;
 using MastersProject.App.Translators;
@@ -19,7 +20,11 @@ public static class ContainerBuilderExtensions
 {
     public static void RegisterInfrastructure(this ContainerBuilder builder)
     {
-        builder.RegisterType<AttitudeDataStreamService>()
+        builder.RegisterType<DataStream<AttitudeDataFrame>>()
+            .AsImplementedInterfaces()
+            .SingleInstance();
+
+        builder.RegisterType<DataStream<DisplayDataFrame>>()
             .AsImplementedInterfaces()
             .SingleInstance();
 

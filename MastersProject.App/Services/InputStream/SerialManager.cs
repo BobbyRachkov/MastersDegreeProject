@@ -1,5 +1,6 @@
-﻿using MastersProject.App.Models.SerialCommunication;
-using MastersProject.App.Services.AttitudeDataStream;
+﻿using MastersProject.App.Infrastructure.DataStreaming;
+using MastersProject.App.Models.DataStreaming;
+using MastersProject.App.Models.SerialCommunication;
 using MastersProject.App.Services.EquationManager;
 using MastersProject.App.Services.InputStream.Models;
 using MastersProject.Serial;
@@ -9,7 +10,7 @@ namespace MastersProject.App.Services.InputStream;
 public class SerialManager : IInputStreamManager
 {
     private readonly ISerialCommunicator<SerialData> _serialCommunicator;
-    private readonly IAttitudeDataStreamWriter _writer;
+    private readonly IDataStreamWriter<AttitudeDataFrame> _attitudeWriter;
     private readonly IEquationManager _equationManager;
 
     private bool _isPaused = false;
@@ -18,11 +19,11 @@ public class SerialManager : IInputStreamManager
 
     public SerialManager(
         ISerialCommunicator<SerialData> serialCommunicator,
-        IAttitudeDataStreamWriter writer,
+        IDataStreamWriter<AttitudeDataFrame> attitudeWriter,
         IEquationManager equationManager)
     {
         _serialCommunicator = serialCommunicator;
-        _writer = writer;
+        _attitudeWriter = attitudeWriter;
         _equationManager = equationManager;
 
         _serialCommunicator.DataReceived += DataReceived;
@@ -45,7 +46,7 @@ public class SerialManager : IInputStreamManager
             return;
         }
 
-        _serialCommunicator.Start();
+        _serialCommunicator.StartAsync();
         _isStarted = true;
     }
 
@@ -92,14 +93,21 @@ public class SerialManager : IInputStreamManager
 
         (double pitch, double roll) parsedData = MapToDegrees(e.Pitch, e.Roll);
 
-        _writer.WriteAttitude(parsedData.pitch, parsedData.roll);
+        _attitudeWriter.WriteEntry(new AttitudeDataFrame
+        {
+            Pitch = parsedData.pitch,
+            Roll = parsedData.roll,
+            RawPitch = e.Pitch,
+            RawRoll = e.Roll,
+            Index = e.Index,
+        });
     }
 
     private (double pitch, double roll) MapToDegrees(int rawPitch, int rawRoll)
     {
         return (
-            _equationManager.PitchEquation.CalculateYValue(rawPitch),
-            _equationManager.RollEquation.CalculateYValue(rawRoll)
+            _equationManager.PitchAttitudeEquation.CalculateYValue(rawPitch),
+            _equationManager.RollAttitudeEquation.CalculateYValue(rawRoll)
             );
     }
 }
